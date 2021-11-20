@@ -109,18 +109,21 @@ class PhotoDetailFragment : Fragment() {
     private fun observeEvent() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
         viewModel.event.collect {
             when (it) {
-                is PhotoDetailEvents.Rebind  -> {
+                is PhotoDetailEvents.Rebind      -> {
                     binding.setVariable(BR.app, it.app)
                 }
-                is PhotoDetailEvents.NavBack -> {
+                is PhotoDetailEvents.NavBack     -> {
                     setStatusbarColor(requireActivity(), getColorFromAttributes(requireActivity(), R.attr.colorPrimaryDark))
                     findNavController().popBackStack()
                 }
-                is PhotoDetailEvents.Snack   -> {
+                is PhotoDetailEvents.Snack       -> {
                     Snackbar.make(binding.root, it.message, Snackbar.LENGTH_SHORT).show()
                 }
-                is PhotoDetailEvents.Browse  -> {
+                is PhotoDetailEvents.Browse      -> {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
+                }
+                is PhotoDetailEvents.UpdateTheme -> {
+                    viewModel.app.themeManager.changeTheme(requireActivity(), it.theme)
                 }
             }
         }

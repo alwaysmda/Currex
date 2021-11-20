@@ -31,8 +31,9 @@ class BaseActivity : ThemeAwareActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+//        _binding = null
     }
+
 
     fun setLoading(visible: Boolean) {
         binding.baseFlLoading.isVisible = visible

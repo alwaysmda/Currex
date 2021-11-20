@@ -37,7 +37,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideTemplateClient(gson: Gson, photoHeaderInterceptor: PhotoHeaderInterceptor): OkHttpClient.Builder {
+    fun provideTemplateClient(photoHeaderInterceptor: PhotoHeaderInterceptor): OkHttpClient.Builder {
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -53,12 +53,12 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideTemplateApi(templateClient: OkHttpClient.Builder): PhotoApi =
+    fun provideTemplateApi(gson: Gson, templateClient: OkHttpClient.Builder): PhotoApi =
         Retrofit
             .Builder()
             .client(templateClient.build())
             .baseUrl(Constant.CON_BASE_TEMPLATE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(PhotoApi::class.java)
 

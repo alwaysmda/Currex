@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import main.ApplicationClass
+import util.Constant
 import util.extension.log
 import javax.inject.Inject
 
@@ -50,6 +51,8 @@ class PhotoDetailViewModel @Inject constructor(
 
     override fun onTitleClick() {
         viewModelScope.launch {
+            val theme = if (app.themeManager.currentTheme.value == Constant.Themes.LIGHT_PINK.value) Constant.Themes.DARK_BLUE else Constant.Themes.LIGHT_PINK
+            _event.emit(PhotoDetailEvents.UpdateTheme(theme))
             photoUseCases.getPhoto(30000000).onEach {
                 when (it) {
                     is DataState.Loading -> log("VM STATE LOADING")
@@ -58,7 +61,6 @@ class PhotoDetailViewModel @Inject constructor(
                 }
             }.launchIn(viewModelScope)
         }
-
     }
 
     override fun onOpenUrlClick() {

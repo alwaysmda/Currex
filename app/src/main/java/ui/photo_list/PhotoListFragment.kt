@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.xodus.templatefive.BR
@@ -123,6 +124,11 @@ class PhotoListFragment : Fragment() {
             when (it) {
                 is PhotoListEvents.Rebind   -> {
                     binding.setVariable(BR.app, it.app)
+                    (binding.photoListRvPhoto.layoutManager as LinearLayoutManager).apply {
+                        val start = findFirstVisibleItemPosition()
+                        val end = findLastVisibleItemPosition()
+                        binding.photoListRvPhoto.adapter?.notifyItemRangeChanged(start, end)
+                    }
                 }
                 is PhotoListEvents.NavPhoto -> {
                     (binding.photoListRvPhoto.findViewHolderForLayoutPosition(it.position) as PhotoAdapter.PhotoHolder?)?.binding?.let { row ->
