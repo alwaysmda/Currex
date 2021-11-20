@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="paddingSmall" type="dimen">4dp</item>
+    <item name="paddingMedium" type="dimen">8dp</item>
+    <item name="paddingLarge" type="dimen">12dp</item>
+    <item name="paddingLargeX" type="dimen">16dp</item>
+    <item name="paddingLargeXX" type="dimen">20dp</item>
+    <item name="paddingLargeXXX" type="dimen">24dp</item>
+    <item name="paddingSectionTitleTop" type="dimen">24dp</item>
+    <item name="paddingSectionContentTop" type="dimen">12dp</item>
+    <item name="paddingSectionContentSides" type="dimen">12dp</item>
+    <item name="paddingRow" type="dimen">6dp</item>
+
+    <item name="dimenToolbar" type="dimen">48dp</item>
+    <item name="dimenToolbar_X" type="dimen">96dp</item>
+    <item name="dimenToolbarButton" type="dimen">38dp</item>
+    <item name="dimenToolbarButtonRadius" type="dimen">19dp</item>
+
+    <!--Radius-->
+    <item name="radiusSmallX" type="dimen">2dp</item>
+    <item name="radiusSmall" type="dimen">4dp</item>
+    <item name="radiusMedium" type="dimen">8dp</item>
+    <item name="radiusLarge" type="dimen">12dp</item>
+    <item name="radiusLargeX" type="dimen">16dp</item>
+    <item name="radiusLargeXX" type="dimen">20dp</item>
+
+    <!--Text Size-->
+    <item name="textSmallX" type="dimen">8sp</item>
+    <item name="textSmall" type="dimen">10sp</item>
+    <item name="textMedium" type="dimen">12sp</item>
+    <item name="textLarge" type="dimen">14sp</item>
+    <item name="textLargeX" type="dimen">16sp</item>
+    <item name="textLargeXX" type="dimen">20sp</item>
+
+    <!--Placeholder Sizes-->
+    <item name="placeholderHeightSmall" type="dimen">6dp</item>
+    <item name="placeholderHeightMedium" type="dimen">10dp</item>
+    <item name="placeholderHeightLarge" type="dimen">14dp</item>
+    <item name="placeholderHeightLargeX" type="dimen">18dp</item>
+    <item name="placeholderWidthSmallX" type="dimen">20dp</item>
+    <item name="placeholderWidthSmall" type="dimen">50dp</item>
+    <item name="placeholderWidthMedium" type="dimen">100dp</item>
+    <item name="placeholderWidthLarge" type="dimen">150dp</item>
+</resources>

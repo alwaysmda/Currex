@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="app"
+                type="main.ApplicationClass" />
+
+        <variable
+                name="action"
+                type="ui.photo_list.PhotoListAction" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="?attr/colorBackground0">
+
+        <include
+                android:id="@+id/photoList_toolbar"
+                layout="@layout/toolbar_photo_list"
+                app:action="@{action}"
+                app:app="@{app}" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/photoList_tvMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:background="?attr/colorBackground1"
+                android:fontFamily="@font/font_en_medium"
+                android:gravity="center"
+                android:padding="@dimen/paddingMedium"
+                android:textColor="?attr/colorText0"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photoList_rvPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/photoList_tvMessage"
+                app:layout_goneMarginTop="48dp"
+                app:spanCount="3"
+                tools:listitem="@layout/row_photo" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/photoList_cvEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="48dp"
+                android:visibility="gone">
+
+            <ImageView
+                    android:id="@+id/photoList_ivEmpty"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="@dimen/paddingMedium"
+                    android:src="@drawable/ic_launcher"
+                    app:layout_constraintBottom_toTopOf="@id/photoList_tvEmpty"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/photoList_tvEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_en_medium"
+                    android:gravity="center"
+                    android:text="@{app.m.nothingToShow}"
+                    android:textSize="@dimen/textLarge"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/photoList_tvEmptySub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingMedium"
+                    android:fontFamily="@font/font_en_medium"
+                    android:gravity="center"
+                    android:text="@{app.m.checkConnectionAndTryAgain}"
+                    android:textSize="@dimen/textMedium"
+                    app:layout_constraintTop_toBottomOf="@id/photoList_tvEmpty" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/photoList_btnRetry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingMedium"
+                    android:fontFamily="@font/font_en_medium"
+                    android:onClick="@{() -> action.onRetry()}"
+                    android:text="@{app.m.retry}"
+                    android:textAllCaps="false"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/photoList_tvEmptySub" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

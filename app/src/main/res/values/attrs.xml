@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorBackground0" format="reference" />
+    <attr name="colorBackground1" format="reference" />
+    <attr name="colorBackground2" format="reference" />
+    <attr name="colorText0" format="reference" />
+    <attr name="colorText1" format="reference" />
+    <attr name="colorText2" format="reference" />
+    <attr name="colorButtonBackground" format="reference" />
+    <attr name="colorButtonText" format="reference" />
+    <attr name="colorRipple" format="reference" />
+</resources>

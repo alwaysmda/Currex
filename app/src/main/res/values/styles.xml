@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Dark.Blue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/darkBlueColorPrimary</item>
+        <item name="colorPrimaryDark">@color/darkBlueColorPrimaryDark</item>
+        <item name="colorAccent">@color/darkBlueColorAccent</item>
+
+        <item name="colorText0">@color/darkBlueText0</item>
+        <item name="colorText1">@color/darkBlueText1</item>
+        <item name="colorText2">@color/darkBlueText2</item>
+        <item name="colorBackground0">@color/darkBlueBackground0</item>
+        <item name="colorBackground1">@color/darkBlueBackground1</item>
+        <item name="colorBackground2">@color/darkBlueBackground2</item>
+        <item name="colorButtonBackground">@color/darkBlueButtonBackground</item>
+        <item name="colorButtonText">@color/darkBlueButtonText</item>
+        <item name="colorRipple">@color/darkBlueRipple</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">?android:colorBackground</item>
+
+        <!--        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>-->
+
+    </style>
+
+
+    <style name="AppTheme.Light.Pink" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/lightPinkColorPrimary</item>
+        <item name="colorPrimaryDark">@color/lightPinkColorPrimaryDark</item>
+        <item name="colorAccent">@color/lightPinkColorAccent</item>
+
+        <item name="colorText0">@color/lightPinkText0</item>
+        <item name="colorText1">@color/lightPinkText1</item>
+        <item name="colorText2">@color/lightPinkText2</item>
+        <item name="colorBackground0">@color/lightPinkBackground0</item>
+        <item name="colorBackground1">@color/lightPinkBackground1</item>
+        <item name="colorBackground2">@color/lightPinkBackground2</item>
+        <item name="colorButtonBackground">@color/lightPinkButtonBackground</item>
+        <item name="colorButtonText">@color/lightPinkButtonText</item>
+        <item name="colorRipple">@color/lightPinkRipple</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">?android:colorBackground</item>
+
+        <!--        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>-->
+
+    </style>
+
+
+    <style name="BottomNavigationViewFontedFa" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/font_fa_medium</item>
+    </style>
+
+    <style name="BottomNavigationViewFontedEn" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/font_en_medium</item>
+    </style>
+</resources>
