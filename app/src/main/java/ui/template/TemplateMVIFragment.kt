@@ -53,7 +53,7 @@ class TemplateMVIFragment : Fragment() {
 
                     }
                     is TemplateMVIState.Loading -> {
-                        templateBtnCenter.text = app.m.loading
+                        templateBtnCenter.text = viewModel.app.m.loading
                     }
                     is TemplateMVIState.Update  -> {
                         templateBtnCenter.text = it.data

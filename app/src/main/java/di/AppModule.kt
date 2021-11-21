@@ -12,6 +12,8 @@ import domain.repository.PhotoRepository
 import domain.usecase.photo.GetPhoto
 import domain.usecase.photo.GetPhotoList
 import domain.usecase.photo.PhotoUseCases
+import domain.usecase.template.Template
+import domain.usecase.template.TemplateUseCases
 import lang.LanguageManager
 import main.ApplicationClass
 import util.PrefManager
@@ -53,6 +55,14 @@ object AppModule {
         return PhotoUseCases(
             GetPhoto(photoRepository),
             GetPhotoList(photoRepository)
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideTemplateUseCases(photoRepository: PhotoRepository): TemplateUseCases {
+        return TemplateUseCases(
+            Template(photoRepository),
         )
     }
 }
