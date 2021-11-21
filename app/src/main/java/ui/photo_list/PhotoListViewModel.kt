@@ -6,8 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import data.remote.DataState
 import domain.model.Photo
 import domain.model.Photo.Companion.cloned
-import domain.usecase.PhotoUseCases
-import kotlinx.coroutines.delay
+import domain.usecase.photo.PhotoUseCases
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -41,7 +40,6 @@ class PhotoListViewModel @Inject constructor(
     private var isLastPage = false
 
     private fun getTemplateList() = viewModelScope.launch {
-        delay(3000)
         isPaginating = true
         photoUseCases.getPhotoList(page).onEach {
             when (it) {

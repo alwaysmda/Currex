@@ -6,6 +6,7 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,9 @@ import domain.model.Photo
 import kotlinx.coroutines.flow.collectLatest
 import ui.BaseActivity
 import util.Constant
+import util.extension.snack
+import java.util.*
+
 
 @AndroidEntryPoint
 class PhotoListFragment : Fragment() {
@@ -34,6 +38,8 @@ class PhotoListFragment : Fragment() {
     private lateinit var baseActivity: BaseActivity
 
     private lateinit var adapter: PhotoAdapter
+    private var timer: Timer = Timer()
+    private var isBackPressed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +59,7 @@ class PhotoListFragment : Fragment() {
         init()
         observeState()
         observeEvent()
+        setBackHandler()
         viewModel.action.onStart()
         return binding.root
     }
@@ -75,6 +82,26 @@ class PhotoListFragment : Fragment() {
                 }
             })
         }
+    }
+
+    private fun setBackHandler() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (isBackPressed) {
+                    baseActivity.finishAffinity()
+                } else {
+                    isBackPressed = true
+                    snack(binding.root, viewModel.app.m.pressBackAgainToExit)
+                    timer.cancel()
+                    timer = Timer()
+                    timer.schedule(object : TimerTask() {
+                        override fun run() {
+                            isBackPressed = false
+                        }
+                    }, 2500)
+                }
+            }
+        })
     }
 
     private fun observeState() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {

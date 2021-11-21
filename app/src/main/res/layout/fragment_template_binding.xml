@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="ui.template.TemplateBindingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorBackground0">
+
+        <include
+                android:id="@+id/template_toolbar"
+                layout="@layout/toolbar_template_binding"
+                app:vm="@{vm}" />
+
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/template_btnCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingMedium"
+                android:fontFamily="@font/font_en_medium"
+                android:onClick="@{() -> vm.action.onButtonClick()}"
+                android:text="@{vm.buttonText}"
+                android:textAllCaps="false"
+                app:fonti="@{vm.app.m.fontMedium}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Template Five" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

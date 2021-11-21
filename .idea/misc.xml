@@ -9,13 +9,18 @@
         <entry key="app/src/main/res/layout/fragment_photo_detail.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/fragment_photo_list.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/fragment_template.xml" value="0.21073961499493415" />
+        <entry key="app/src/main/res/layout/fragment_template_binding.xml" value="0.34371833839918947" />
+        <entry key="app/src/main/res/layout/fragment_template_binfing.xml" value="0.34371833839918947" />
+        <entry key="app/src/main/res/layout/fragment_template_mvi.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/row_photo.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/row_photo_state.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/row_template.xml" value="0.21073961499493415" />
         <entry key="app/src/main/res/layout/row_template_state.xml" value="0.2740036231884058" />
         <entry key="app/src/main/res/layout/toolbar_photo_detail.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/toolbar_photo_list.xml" value="0.34371833839918947" />
-        <entry key="app/src/main/res/layout/toolbar_template.xml" value="0.21073961499493415" />
+        <entry key="app/src/main/res/layout/toolbar_template.xml" value="0.55" />
+        <entry key="app/src/main/res/layout/toolbar_template_binding.xml" value="0.34371833839918947" />
+        <entry key="app/src/main/res/layout/toolbar_template_mvi.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.44814814814814813" />
       </map>
     </option>

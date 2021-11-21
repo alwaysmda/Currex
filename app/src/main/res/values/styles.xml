@@ -60,4 +60,16 @@
     <style name="BottomNavigationViewFontedEn" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/font_en_medium</item>
     </style>
+
+    <style name="ToolbarButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:inset">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="cornerRadius">@dimen/dimenToolbarButtonRadius</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="iconTint">@color/md_white_1000</item>
+        <item name="rippleColor">?attr/colorRipple</item>
+    </style>
 </resources>

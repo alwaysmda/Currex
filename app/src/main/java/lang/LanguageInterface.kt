@@ -18,6 +18,8 @@ interface LanguageInterface {
     val title: String
     val languageUpdated: String
     val somethingWentWrong: String
+    val pressBackAgainToExit: String
+    val loading: String
 
     fun paramString(param: String) = "$appName $param"
 }

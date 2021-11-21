@@ -9,9 +9,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import domain.repository.PhotoRepository
-import domain.usecase.GetPhoto
-import domain.usecase.GetPhotoList
-import domain.usecase.PhotoUseCases
+import domain.usecase.photo.GetPhoto
+import domain.usecase.photo.GetPhotoList
+import domain.usecase.photo.PhotoUseCases
 import lang.LanguageManager
 import main.ApplicationClass
 import util.PrefManager

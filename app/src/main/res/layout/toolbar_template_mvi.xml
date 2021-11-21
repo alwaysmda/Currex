@@ -10,7 +10,7 @@
 
         <variable
                 name="action"
-                type="ui.photo_detail.PhotoDetailAction" />
+                type="ui.template.TemplateAction" />
     </data>
 
     <LinearLayout
@@ -32,17 +32,16 @@
                 app:contentInsetStart="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/toolbar_parent"
+                    android:id="@+id/photoList_parent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                 <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/photoDetail_tvTitle"
+                        android:id="@+id/template_tvTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/font_en_medium"
                         android:gravity="center"
-                        android:onClick="@{() -> action.onTitleClick()}"
                         android:text="@{app.m.appName}"
                         android:textColor="@color/md_white_1000"
                         android:textSize="16sp"
@@ -50,25 +49,25 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent" />
 
+
                 <com.google.android.material.button.MaterialButton
                         style="@style/ToolbarButton"
                         android:layout_width="@dimen/dimenToolbarButton"
                         android:layout_height="@dimen/dimenToolbarButton"
                         android:layout_margin="@dimen/paddingMedium"
-                        android:onClick="@{()->action.onBackClick()}"
+                        android:onClick="@{()->action.onButtonClick()}"
                         app:icon="@drawable/ic_arrow_left"
                         app:iconSize="14dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
         <View
-                android:id="@+id/toolbar_shadow"
+                android:id="@+id/photoList_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:alpha="0.3"

@@ -20,5 +20,7 @@ class LanguageEN(private val app: ApplicationClass) : LanguageInterface {
     override val title = "Title"
     override val languageUpdated = "Language Updated"
     override val somethingWentWrong = "Something Went Wrong"
+    override val pressBackAgainToExit = "Press back again to exit"
+    override val loading = "Loading..."
 
 }
