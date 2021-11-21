@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.xodus.templatefive.R
 import com.xodus.templatefive.databinding.FragmentTemplateBindingBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import ui.BaseActivity
+import util.extension.snack
 
 
 @AndroidEntryPoint
@@ -27,6 +30,7 @@ class TemplateBindingFragment : Fragment() {
         }
         baseActivity = requireActivity() as BaseActivity
         init()
+        observeEvents()
         viewModel.action.onStart()
         return binding.root
     }
@@ -35,6 +39,19 @@ class TemplateBindingFragment : Fragment() {
     private fun init() {
         with(binding) {
 
+        }
+    }
+
+    private fun observeEvents() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewModel.event.collectLatest {
+            when (it) {
+                is TemplateEvents.Rebind -> {
+                    binding.vm = viewModel
+                }
+                is TemplateEvents.Snack  -> {
+                    snack(binding.root, it.message)
+                }
+            }
         }
     }
 }

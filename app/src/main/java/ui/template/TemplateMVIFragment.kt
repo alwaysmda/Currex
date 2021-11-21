@@ -66,10 +66,10 @@ class TemplateMVIFragment : Fragment() {
     private fun observeEvent() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
         viewModel.event.collectLatest {
             when (it) {
-                is TemplateMVIEvents.Rebind -> {
+                is TemplateEvents.Rebind -> {
                     binding.setVariable(BR.app, it.app)
                 }
-                is TemplateMVIEvents.Snack  -> {
+                is TemplateEvents.Snack  -> {
                     snack(binding.root, it.message)
                 }
             }

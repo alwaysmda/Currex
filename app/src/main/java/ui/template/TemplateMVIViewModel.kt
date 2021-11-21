@@ -26,7 +26,7 @@ class TemplateMVIViewModel @Inject constructor(
     private var _state = MutableStateFlow<TemplateMVIState>(TemplateMVIState.Idle)
     val state = _state.asStateFlow()
 
-    private var _event = MutableSharedFlow<TemplateMVIEvents>()
+    private var _event = MutableSharedFlow<TemplateEvents>()
     val event = _event.asSharedFlow()
 
     private var isFirstStart = true
@@ -43,7 +43,7 @@ class TemplateMVIViewModel @Inject constructor(
 
     override fun onButtonClick() {
         viewModelScope.launch {
-            _event.emit(TemplateMVIEvents.Snack(app.m.title))
+            _event.emit(TemplateEvents.Snack(app.m.title))
         }
     }
 

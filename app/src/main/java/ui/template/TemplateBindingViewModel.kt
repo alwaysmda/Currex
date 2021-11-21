@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import data.remote.DataState
 import domain.usecase.template.TemplateUseCases
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -19,6 +21,8 @@ class TemplateBindingViewModel @Inject constructor(
 ) : ViewModel(), TemplateAction {
 
     val action: TemplateAction = this
+    private var _event = MutableSharedFlow<TemplateEvents>()
+    val event = _event.asSharedFlow()
 
     var buttonText = MutableStateFlow(app.m.appName)
 
@@ -35,7 +39,9 @@ class TemplateBindingViewModel @Inject constructor(
     }
 
     override fun onButtonClick() {
-        buttonText.value = app.m.title
+        viewModelScope.launch {
+            _event.emit(TemplateEvents.Snack(app.m.appName))
+        }
     }
 
     private fun doTemplate() = viewModelScope.launch {
