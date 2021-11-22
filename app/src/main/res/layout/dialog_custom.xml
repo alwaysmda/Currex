@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="app"
+                type="main.ApplicationClass" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/dialogCustom_tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_en_medium"
+                    android:padding="12dp"
+                    android:textColor="?attr/colorText2"
+                    android:textSize="@dimen/textLarge"
+                    app:fonti="@{app.m.fontBold}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/dialogCustom_tvContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_en_medium"
+                    android:maxHeight="400dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:scrollbars="vertical"
+                    android:textColor="?attr/colorText0"
+                    android:textSize="@dimen/textMedium"
+                    app:fonti="@{app.m.fontMedium}"
+                    app:layout_constraintTop_toBottomOf="@id/dialogCustom_tvTitle"
+                    tools:text="Content" />
+
+
+            <ProgressBar
+                    android:id="@+id/dialogCustom_pbProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dialogCustom_tvContent" />
+
+            <LinearLayout
+                    android:id="@+id/dialogCustom_llButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingLarge"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/paddingMedium"
+                    android:weightSum="3"
+                    app:layout_constraintTop_toBottomOf="@id/dialogCustom_pbProgress">
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dialogCustom_btnNeutral"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_en_medium"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="@dimen/textMedium"
+                        app:backgroundTint="@color/md_orange_700"
+                        app:cornerRadius="@dimen/radiusSmall"
+                        app:fonti="@{app.m.fontBold}"
+                        tools:text="Neutral" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dialogCustom_btnNegative"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_en_medium"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="@dimen/textMedium"
+                        app:backgroundTint="@color/md_red_700"
+                        app:cornerRadius="@dimen/radiusSmall"
+                        app:fonti="@{app.m.fontBold}"
+                        tools:text="Negative" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dialogCustom_btnPositive"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/font_en_medium"
+                        android:gravity="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/md_white_1000"
+                        android:textSize="@dimen/textMedium"
+                        app:backgroundTint="@color/md_green_700"
+                        app:cornerRadius="@dimen/radiusSmall"
+                        app:fonti="@{app.m.fontBold}"
+                        tools:text="Positive" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
