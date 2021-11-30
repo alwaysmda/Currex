@@ -22,5 +22,6 @@ class LanguageEN(private val app: ApplicationClass) : LanguageInterface {
     override val somethingWentWrong = "Something Went Wrong"
     override val pressBackAgainToExit = "Press back again to exit"
     override val loading = "Loading..."
+    override val download = "Download"
 
 }

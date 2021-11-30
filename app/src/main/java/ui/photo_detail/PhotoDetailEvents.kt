@@ -9,4 +9,5 @@ sealed class PhotoDetailEvents {
     class Snack(val message: String) : PhotoDetailEvents()
     class Browse(val url: String) : PhotoDetailEvents()
     class UpdateTheme(val theme: Constant.Themes) : PhotoDetailEvents()
+    object RequestPermission : PhotoDetailEvents()
 }

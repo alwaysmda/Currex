@@ -10,12 +10,6 @@ data class Url(
 ) : Parcelable {
 
     companion object {
-        fun List<Url>.cloned(): List<Url> {
-            val list = arrayListOf<Url>()
-            forEach {
-                list.add(Url(it.thumb, it.original))
-            }
-            return list
-        }
+        fun List<Url>.cloned() = ArrayList(map { it.copy() })
     }
 }

@@ -1,8 +1,8 @@
-package util
+package data.remote.dto
 
-import data.remote.dto.PhotoDto
 import domain.model.Photo
 import domain.model.Url
+import util.EntityMapper
 import javax.inject.Inject
 
 class PhotoMapper @Inject constructor() : EntityMapper<PhotoDto, Photo> {
@@ -11,7 +11,8 @@ class PhotoMapper @Inject constructor() : EntityMapper<PhotoDto, Photo> {
             dto.albumId,
             dto.id,
             dto.title,
-            Url(dto.thumbnailUrl, dto.url)
+            dto.url.split("/").last(),
+            Url(dto.thumbnailUrl, dto.url),
         )
 
 
@@ -24,6 +25,6 @@ class PhotoMapper @Inject constructor() : EntityMapper<PhotoDto, Photo> {
             model.url.thumb,
         )
 
-    fun mapFromEntityList(photoDtoList: List<PhotoDto>): List<Photo> =
-        photoDtoList.map { toDomainModel(it) }
+    fun fromEntityList(dtoList: ArrayList<PhotoDto>): ArrayList<Photo> =
+        ArrayList(dtoList.map { toDomainModel(it) })
 }

@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import data.remote.DataState
+import data.remote.DownloadDataState
 import domain.model.Photo
 import domain.usecase.photo.PhotoUseCases
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -15,9 +17,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import main.ApplicationClass
 import util.Constant
+import util.extension.getInternalDirectory
 import util.extension.log
+import util.extension.scanMedia
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class PhotoDetailViewModel @Inject constructor(
     val app: ApplicationClass,
@@ -56,7 +61,7 @@ class PhotoDetailViewModel @Inject constructor(
             photoUseCases.getPhoto(30000000).onEach {
                 when (it) {
                     is DataState.Loading -> log("VM STATE LOADING")
-                    is DataState.Failure -> log("VM STATE FAIL ${it.error.code}")
+                    is DataState.Failure -> log("VM STATE FAIL ${it.error?.code ?: 0}")
                     is DataState.Success -> log("VM STATE SUCCESS ${it.data.id}")
                 }
             }.launchIn(viewModelScope)
@@ -69,9 +74,41 @@ class PhotoDetailViewModel @Inject constructor(
         }
     }
 
+    override fun onDownloadClick() {
+        viewModelScope.launch {
+            _event.emit(PhotoDetailEvents.RequestPermission)
+        }
+    }
+
     override fun onBackClick() {
         viewModelScope.launch {
             _event.emit(PhotoDetailEvents.NavBack)
+        }
+    }
+
+    override fun onPermission(granted: Boolean) {
+        if (granted) {
+            photoUseCases.downloadUseCase(photo.url.original, "${getInternalDirectory().path}/temp", "${photo.color.uppercase()}.png").onEach {
+                when (it) {
+                    is DownloadDataState.Loading     -> {
+                        _state.emit(PhotoDetailState.UpdateDownloadText("Loading"))
+                    }
+                    is DownloadDataState.Downloading -> {
+                        _state.emit(PhotoDetailState.UpdateDownloadText("Downloading ${it.percent}%"))
+                    }
+                    is DownloadDataState.Success     -> {
+                        _state.emit(PhotoDetailState.UpdateDownloadText("Download Complete"))
+                        scanMedia("${it.path}/${it.name}")
+                    }
+                    is DownloadDataState.Failure     -> {
+                        _state.emit(PhotoDetailState.UpdateDownloadText("Download Failed"))
+                    }
+                }
+            }.launchIn(viewModelScope)
+        } else {
+            viewModelScope.launch {
+                _event.emit(PhotoDetailEvents.Snack("Permission Denied"))
+            }
         }
     }
 }

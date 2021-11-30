@@ -2,9 +2,9 @@ package data.remote
 
 import domain.model.NetworkError
 
-sealed class DataState<out T> {
-    class Success<out D>(val data: D) : DataState<D>()
-    class Failure(val code: Int, val message: String, val error: NetworkError? = null) : DataState<Nothing>() {
+sealed class DownloadDataState {
+    class Success(val path: String, val name: String, val data: String?) : DownloadDataState()
+    class Failure(val code: Int, val message: String, val error: NetworkError? = null) : DownloadDataState() {
         companion object {
             const val CODE_INVALID = -1001
             const val CODE_NOT_FOUND = -1002
@@ -15,5 +15,6 @@ sealed class DataState<out T> {
         }
     }
 
-    object Loading : DataState<Nothing>()
+    class Downloading(val percent: Int) : DownloadDataState()
+    object Loading : DownloadDataState()
 }

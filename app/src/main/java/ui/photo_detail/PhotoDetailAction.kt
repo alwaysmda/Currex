@@ -7,4 +7,6 @@ interface PhotoDetailAction {
     fun onBackClick()
     fun onTitleClick()
     fun onOpenUrlClick()
+    fun onDownloadClick()
+    fun onPermission(granted: Boolean)
 }

@@ -9,11 +9,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import domain.repository.PhotoRepository
+import domain.usecase.photo.DownloadUseCase
 import domain.usecase.photo.GetPhoto
 import domain.usecase.photo.GetPhotoList
 import domain.usecase.photo.PhotoUseCases
 import domain.usecase.template.Template
 import domain.usecase.template.TemplateUseCases
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import lang.LanguageManager
 import main.ApplicationClass
 import util.PrefManager
@@ -49,10 +51,12 @@ object AppModule {
         else                                      -> Market.init(Market.MarketType.BAZAAR)
     }
 
+    @ExperimentalCoroutinesApi
     @Singleton
     @Provides
     fun providePhotoUseCases(photoRepository: PhotoRepository): PhotoUseCases {
         return PhotoUseCases(
+            DownloadUseCase(photoRepository),
             GetPhoto(photoRepository),
             GetPhotoList(photoRepository)
         )

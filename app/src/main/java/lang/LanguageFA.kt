@@ -22,4 +22,5 @@ class LanguageFA(private val app: ApplicationClass) : LanguageInterface {
     override val somethingWentWrong = "مشکلی پیش آمده"
     override val pressBackAgainToExit = "برای خروج دوباره بزنید"
     override val loading = "در حال بارگذاری"
+    override val download = "دانلود"
 }

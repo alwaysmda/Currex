@@ -90,16 +90,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/paddingLargeX"
-                        android:layout_marginBottom="@dimen/paddingLargeXXX"
                         android:fontFamily="@font/font_en_medium"
                         android:onClick="@{()->action.onOpenUrlClick()}"
                         android:paddingHorizontal="@dimen/paddingLargeXXX"
                         android:text="@{app.m.openUrl}"
                         app:fonti="@{app.m.fontBold}"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/photoDetail_tvTitle" />
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/photoDetail_btnDownload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/paddingLargeX"
+                        android:layout_marginBottom="@dimen/paddingLargeXXX"
+                        android:fontFamily="@font/font_en_medium"
+                        android:onClick="@{()->action.onDownloadClick()}"
+                        android:paddingHorizontal="@dimen/paddingLargeXXX"
+                        android:text="@{app.m.download}"
+                        app:fonti="@{app.m.fontBold}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/photoDetail_btnOpenUrl" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

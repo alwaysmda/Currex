@@ -23,6 +23,7 @@ import com.xodus.templatefive.R
 import com.xodus.templatefive.databinding.FragmentPhotoListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import domain.model.Photo
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import ui.BaseActivity
 import util.Constant
@@ -30,6 +31,7 @@ import util.extension.snack
 import java.util.*
 
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class PhotoListFragment : Fragment() {
     private var _binding: FragmentPhotoListBinding? = null

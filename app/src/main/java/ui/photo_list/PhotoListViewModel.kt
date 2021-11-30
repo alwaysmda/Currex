@@ -7,6 +7,7 @@ import data.remote.DataState
 import domain.model.Photo
 import domain.model.Photo.Companion.cloned
 import domain.usecase.photo.PhotoUseCases
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -18,6 +19,7 @@ import main.ApplicationClass
 import util.Constant
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class PhotoListViewModel @Inject constructor(
     val app: ApplicationClass,
@@ -39,7 +41,7 @@ class PhotoListViewModel @Inject constructor(
     private var isPaginating = false
     private var isLastPage = false
 
-    private fun getTemplateList() = viewModelScope.launch {
+    private fun getTemplateList() {
         isPaginating = true
         photoUseCases.getPhotoList(page).onEach {
             when (it) {
@@ -57,7 +59,7 @@ class PhotoListViewModel @Inject constructor(
                     _state.emit(PhotoListState.UpdatePhotoList(list.cloned(), isLastPage.not(), false))
                 }
                 is DataState.Failure -> {
-                    _event.emit(PhotoListEvents.Snack(it.error.message))
+                    _event.emit(PhotoListEvents.Snack(it.error?.message ?: "something went wrong"))
                     if (list.isEmpty()) {
                         _state.emit(PhotoListState.EmptyView)
                     } else {
