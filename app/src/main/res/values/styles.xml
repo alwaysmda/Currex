@@ -72,4 +72,110 @@
         <item name="iconTint">@color/md_white_1000</item>
         <item name="rippleColor">?attr/colorRipple</item>
     </style>
+
+    <style name="AppTheme.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="GeneralButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">?attr/colorButtonText</item>
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="iconTint">?attr/colorButtonText</item>
+        <item name="iconSize">20dp</item>
+        <item name="android:fontFamily">@font/font_en_medium</item>
+        <item name="backgroundTint">?attr/colorButtonBackground</item>
+        <item name="cornerRadius">@dimen/radiusSmall</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="rippleColor">?attr/colorRipple</item>
+    </style>
+
+    <style name="GeneralButton.ToolbarButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:inset">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="cornerRadius">@dimen/dimenToolbarButtonRadius</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="iconTint">@color/md_white_1000</item>
+        <item name="rippleColor">?attr/colorRipple</item>
+    </style>
+
+    <style name="GeneralButton.IconButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">?attr/colorButtonText</item>
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:fontFamily">@font/font_en_medium</item>
+        <item name="backgroundTint">?attr/colorButtonBackground</item>
+        <item name="iconTint">?attr/colorButtonText</item>
+        <item name="iconSize">20dp</item>
+        <item name="cornerRadius">@dimen/radiusSmall</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="android:inset">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="rippleColor">?attr/colorRipple</item>
+    </style>
+
+    <style name="GeneralButton.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorText0</item>
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:fontFamily">@font/font_en_medium</item>
+        <item name="cornerRadius">@dimen/radiusSmall</item>
+        <item name="android:inset">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">24dp</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="rippleColor">?attr/colorButtonBackground</item>
+    </style>
+
+    <style name="GeneralText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/colorText0</item>
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:fontFamily">@font/font_en_medium</item>
+    </style>
+
+    <style name="GeneralText.Shadow" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/colorText0</item>
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:fontFamily">@font/font_en_medium</item>
+        <item name="android:shadowColor">?attr/colorText0</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <style name="TabLayoutTextSize" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="NumberPrefix" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/textMedium</item>
+        <item name="android:fontFamily">@font/font_fa_medium</item>
+    </style>
+
+    <style name="CircularImageView">
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="CircularImageView.Avatar">
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

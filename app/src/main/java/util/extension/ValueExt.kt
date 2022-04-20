@@ -2,11 +2,9 @@ package util.extension
 
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
-import main.ApplicationClass
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import util.Constant
 import java.security.MessageDigest
 import java.text.DecimalFormat
 import java.util.*
@@ -34,7 +32,7 @@ fun translate(_c: Any): String {
     val enN = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
     val faN = arrayOf("۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹")
 
-    if (ApplicationClass.getInstance().languageManager.currentLanguage.value == Constant.Languages.FA.value) {
+    if (true) {
         for (i in 0..9) {
             c = c.replace(enN[i], faN[i])
         }

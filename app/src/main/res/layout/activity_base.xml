@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorBackground0"
-            tools:context="ui.BaseActivity">
+            tools:context="ui.base.BaseActivity">
 
         <fragment
                 android:id="@+id/baseActivity_fragment"
@@ -22,35 +22,10 @@
                 android:layout_weight="1"
                 app:defaultNavHost="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_constraintBottom_toTopOf="@+id/base_nvNavigation"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:navGraph="@navigation/graph" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/base_nvNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hapticFeedbackEnabled="true"
-                android:theme="@style/BottomNavigationViewFontedFa"
-                app:itemTextColor="?colorPrimary"
-                app:labelVisibilityMode="selected"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:menu="@menu/navigation_menu" />
-
-        <FrameLayout
-                android:id="@+id/base_flLoading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="gone">
-
-            <ProgressBar
-                    android:id="@+id/base_pbLoading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-        </FrameLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

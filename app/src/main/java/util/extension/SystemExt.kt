@@ -4,16 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
-import android.content.ClipData
-import android.content.ClipDescription
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.database.Cursor
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
@@ -27,11 +22,12 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.android.currex.BuildConfig
+import com.android.currex.R
 import com.google.android.material.snackbar.Snackbar
-import com.xodus.templatefive.BuildConfig
-import com.xodus.templatefive.R
 import main.ApplicationClass
 import java.io.File
 import java.util.*
@@ -41,11 +37,9 @@ fun getAndroidID(): String {
     return Settings.Secure.getString(ApplicationClass.getInstance().contentResolver, Settings.Secure.ANDROID_ID)
 }
 
-
 fun getUUID(name: String? = null): String {
     return UUID.fromString(name).toString()
 }
-
 
 fun getPackageInfo(): PackageInfo {
     return ApplicationClass.getInstance().packageManager.getPackageInfo(ApplicationClass.getInstance().packageName, 0)
@@ -97,9 +91,7 @@ fun Activity.hideSoftKeyboard() {
             this.currentFocus!!.windowToken, 0
         )
     } catch (e: Exception) {
-
     }
-
 }
 
 fun showSoftKeyboard() {
@@ -112,7 +104,6 @@ fun copyToClipboard(text: String) {
     val clip = ClipData.newPlainText(BuildConfig.APPLICATION_ID, text)
     clipboard.setPrimaryClip(clip)
 }
-
 
 fun convertUriToPath(contentUri: Uri): String {
     var cursor: Cursor? = null
@@ -127,7 +118,6 @@ fun convertUriToPath(contentUri: Uri): String {
     }
 }
 
-
 fun setStatusbarColor(activity: Activity, color: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         val window = activity.window
@@ -136,18 +126,9 @@ fun setStatusbarColor(activity: Activity, color: Int) {
     }
 }
 
-
 /**
  * <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
  */
-fun isNetworkAvailable(): Boolean {
-    val connectivityManager =
-        ApplicationClass.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val activeNetworkInfo = connectivityManager.activeNetworkInfo
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected
-}
-
-
 fun isAppAvailable(appName: String): Boolean {
     return try {
         ApplicationClass.getInstance().packageManager.getPackageInfo(appName, 0)
@@ -155,7 +136,6 @@ fun isAppAvailable(appName: String): Boolean {
     } catch (e: PackageManager.NameNotFoundException) {
         false
     }
-
 }
 
 fun getColorFromAttributes(activity: Activity, color: Int): Int {
@@ -164,7 +144,6 @@ fun getColorFromAttributes(activity: Activity, color: Int): Int {
     theme.resolveAttribute(color, typedValue, true)
     return typedValue.data
 }
-
 
 fun openGallery(activity: Activity, requestCode: Int, multiple: Boolean) {
     val intent = Intent()
@@ -199,8 +178,8 @@ fun toast(message: Int) {
 fun snack(view: View?, message: String, long: Boolean = false) {
     view?.let {
         val snack = Snackbar.make(it, message, if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
-        val tv = snack.view.findViewById<TextView>(R.id.snackbar_text)
-        tv.typeface = ApplicationClass.getInstance().m.fontLight
+        val tv = snack.view.findViewById<TextView?>(R.id.snackbar_text)
+        tv?.typeface = ResourcesCompat.getFont(it.context, R.font.font_en_light)
         snack.show()
     }
 }
@@ -208,8 +187,8 @@ fun snack(view: View?, message: String, long: Boolean = false) {
 fun snack(view: View?, message: Int, long: Boolean = false) {
     view?.let {
         val snack = Snackbar.make(it, message, if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
-        val tv = snack.view.findViewById<TextView>(R.id.snackbar_text)
-        tv.typeface = ApplicationClass.getInstance().m.fontLight
+        val tv = snack.view.findViewById<TextView?>(R.id.snackbar_text)
+        tv?.typeface = ResourcesCompat.getFont(it.context, R.font.font_en_light)
         snack.show()
     }
 }
@@ -226,11 +205,9 @@ fun Context.isServiceRunning(serviceClass: Class<Any>): Boolean {
 
 fun isPhonePluggedIn(): Boolean {
     var charging = false
-
     val batteryIntent: Intent? = ApplicationClass.getInstance().registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     val status = batteryIntent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
     val batteryCharge = status == BatteryManager.BATTERY_STATUS_CHARGING
-
     val chargePlug = batteryIntent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
     val usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB
     val acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC
@@ -245,10 +222,8 @@ fun isPhonePluggedIn(): Boolean {
 fun getBatteryPercentage(): Int {
     val iFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
     val batteryStatus = ApplicationClass.getInstance().registerReceiver(null, iFilter)
-
     val level = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
     val scale = batteryStatus?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
-
     val batteryPct: Float = level / scale.toFloat()
 
     return (batteryPct * 100).toInt()
@@ -295,7 +270,6 @@ fun Activity.shareImage(image: File?) {
     share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(image))
     startActivity(Intent.createChooser(share, "Share To"))
 }
-
 //fun Activity.shareImage(url: String?) {
 //    if (url == null) {
 //        log("GlobalClass: shareImage: Error: url is null")
@@ -316,27 +290,21 @@ fun Activity.shareImage(image: File?) {
 //        }
 //    }, url, getDataDirectory().path, "temp.jpg"))
 //}
-
 fun pasteClipboard(): String {
     val clipboard = ApplicationClass.getInstance().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
     var pasteData = ""
-
     // If it does contain data, decide if you can handle the data.
     if (!clipboard.hasPrimaryClip()) {
     } else if (!clipboard.primaryClipDescription!!.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-
         // since the clipboard has data but it is not plain text
     } else {
-
         //since the clipboard contains plain text.
         val item = clipboard.primaryClip!!.getItemAt(0)
-
         // Gets the clipboard as text.
         pasteData = item.text.toString()
     }
     return pasteData
 }
-
 //fun isGooglePlayServicesAvailable(activity: Activity, showDialog: Boolean): Boolean {
 //    val googleApiAvailability = GoogleApiAvailability.getInstance()
 //    val status = googleApiAvailability.isGooglePlayServicesAvailable(activity)
@@ -348,7 +316,6 @@ fun pasteClipboard(): String {
 //    }
 //    return true
 //}
-
 fun convertPXtoSP(px: Float): Float {
     return px / ApplicationClass.getInstance().resources.displayMetrics.scaledDensity
 }

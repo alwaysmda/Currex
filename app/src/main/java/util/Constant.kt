@@ -7,7 +7,8 @@ object Constant {
     const val PREF_LOG = "PREF_LOG"
 
     //========================== C O N S T A N T S ==========================//
-    const val CON_BASE_TEMPLATE_URL = "https://jsonplaceholder.typicode.com/"
+    const val CON_BASE_URL = "http://api.exchangeratesapi.io/v1/"
+    const val CON_API_ACCESS_KEY = "4166b82d72c51e9c96606344f3431234"
     const val CON_PREF_NAME = "com.xodus.templatefive"
     const val CON_AES_KEY = "dde717bc4fd78bbbd98ccc7d8516ba79"
     const val CON_AES_IV = "a3da2dab4e2b44d1"

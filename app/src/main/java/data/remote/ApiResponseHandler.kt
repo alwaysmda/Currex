@@ -34,15 +34,15 @@ ApiResponseHandler(
                         DataState.Failure(error.meta.code, error.meta.message, networkErrorMapper.toDomainModel(error))
                     } catch (e: Exception) {
                         e.printStackTrace()
-                        DataState.Failure(response.code(), app.m.somethingWentWrong)
+                        DataState.Failure(response.code(), "Something went wrong")
                     }
                 } ?: kotlin.run {
-                    return DataState.Failure(response.code(), app.m.somethingWentWrong)
+                    return DataState.Failure(response.code(), "Something went wrong")
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            return DataState.Failure(DataState.Failure.CODE_NO_INTERNET, app.m.checkConnectionAndTryAgain)
+            return DataState.Failure(DataState.Failure.CODE_NO_INTERNET, "No internet connection")
         }
     }
 

@@ -4,11 +4,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import data.remote.PhotoApi
+import data.remote.Api
 import data.remote.dto.NetworkErrorMapper
-import data.remote.dto.PhotoMapper
-import data.repository.PhotoRepositoryImpl
-import domain.repository.PhotoRepository
+import data.remote.dto.ResponseExchangeRateMapper
+import data.repository.RepositoryImpl
+import domain.repository.Repository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import main.ApplicationClass
 import javax.inject.Singleton
@@ -19,6 +19,6 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideTemplateRepository(app: ApplicationClass, api: PhotoApi, photoMapper: PhotoMapper, networkErrorMapper: NetworkErrorMapper): PhotoRepository =
-        PhotoRepositoryImpl(app, api, networkErrorMapper, photoMapper)
+    fun provideTemplateRepository(app: ApplicationClass, api: Api, networkErrorMapper: NetworkErrorMapper, responseExchangeRateMapper: ResponseExchangeRateMapper): Repository =
+        RepositoryImpl(app, api, networkErrorMapper, responseExchangeRateMapper)
 }

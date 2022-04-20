@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.xodus.templatefive" android:installLocation="auto">
-
-    <uses-permission android:name="ir.mservices.market.BILLING" />
-
-    <queries>
-        <package android:name="ir.mservices.market" />
-    </queries>
-</manifest>

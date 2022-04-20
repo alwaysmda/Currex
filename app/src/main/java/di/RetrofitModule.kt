@@ -1,17 +1,13 @@
 package di
 
-import billing.Market
+import com.android.currex.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.xodus.templatefive.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import data.remote.PhotoApi
-import data.remote.PhotoHeaderInterceptor
-import lang.LanguageManager
-import main.ApplicationClass
+import data.remote.Api
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,26 +19,18 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
-
     @Provides
     @Singleton
     fun provideGsonBuilder(): Gson =
         GsonBuilder().create()
 
-    @Singleton
-    @Provides
-    fun provideHeaderInterceptor(appClass: ApplicationClass, market: Market, languageManager: LanguageManager): PhotoHeaderInterceptor =
-        PhotoHeaderInterceptor(appClass, market, languageManager)
-
-
     @Provides
     @Singleton
-    fun provideTemplateClient(photoHeaderInterceptor: PhotoHeaderInterceptor): OkHttpClient.Builder {
+    fun provideTemplateClient(): OkHttpClient.Builder {
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(photoHeaderInterceptor)
         //.addInterceptor(GsonConverterFactory.create(gson))
         if (BuildConfig.DEBUG) {
             okHttpClient.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
@@ -50,16 +38,14 @@ object RetrofitModule {
         return okHttpClient
     }
 
-
     @Provides
     @Singleton
-    fun provideTemplateApi(gson: Gson, templateClient: OkHttpClient.Builder): PhotoApi =
+    fun provideTemplateApi(gson: Gson, templateClient: OkHttpClient.Builder): Api =
         Retrofit
             .Builder()
             .client(templateClient.build())
-            .baseUrl(Constant.CON_BASE_TEMPLATE_URL)
+            .baseUrl(Constant.CON_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-            .create(PhotoApi::class.java)
-
+            .create(Api::class.java)
 }

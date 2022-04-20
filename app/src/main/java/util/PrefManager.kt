@@ -16,7 +16,7 @@ class PrefManager(appClass: ApplicationClass) {
                 null
             } else {
                 val result = decPref(item)
-                if (result.isBlank()) null else result
+                result.ifBlank { null }
             }
         } catch (e: Exception) {
             null

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="ui.convert.ConvertViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorBackground1">
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/convert_tvTitle"
+                style="@style/GeneralText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimenToolbar"
+                android:background="?attr/colorBackground0"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textSize="@dimen/textLarge"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/shape_shadow"
+                app:layout_constraintTop_toBottomOf="@id/convert_tvTitle" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/convert_tvBalanceTitle"
+                style="@style/GeneralText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/paddingLargeXXX"
+                android:alpha="0.7"
+                android:textSize="@dimen/textLargeXX"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/convert_tvTitle"
+                tools:text="My Balances" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/convert_rvBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/paddingMedium"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/paddingLargeX"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/convert_tvBalanceTitle"
+                tools:listitem="@layout/row_balance" />
+
+        <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/convert_tvConvertTitle"
+                style="@style/GeneralText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/paddingLargeXXX"
+                android:alpha="0.7"
+                android:textSize="@dimen/textLargeXX"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/convert_rvBalance"
+                tools:text="Currency Exchange" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

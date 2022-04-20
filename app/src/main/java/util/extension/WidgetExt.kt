@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.RadialGradient
 import android.graphics.Shader
-import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Handler
@@ -21,7 +20,6 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import main.ApplicationClass
 
 fun getColor(view: ImageView, x: Int, y: Int): Int {
     return (view.drawable as BitmapDrawable).bitmap.getPixel(x, y)
@@ -191,14 +189,6 @@ fun ProgressBar.setTint(color: Int) {
     indeterminateDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
 }
 
-fun ViewGroup.changeChildFont(typeface: Typeface) {
-    for (i in 0 until childCount) {
-        val view = getChildAt(i)
-        if (view is TextView) {
-            view.typeface = ApplicationClass.getInstance().m.fontLight
-        }
-    }
-}
 
 fun ViewGroup.animateChild() {
     val views: Array<View?> = arrayOfNulls(childCount)

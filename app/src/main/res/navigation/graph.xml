@@ -2,27 +2,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/graph"
-        app:startDestination="@id/navigation_one">
+        app:startDestination="@id/convertFragment">
 
     <fragment
-            android:id="@+id/navigation_one"
-            android:name="ui.photo_list.PhotoListFragment"
-            android:label="TemplateFragment"
-            tools:layout="@layout/fragment_photo_list">
-        <action
-                android:id="@+id/action_navigation_one_to_photoDetailFragment"
-                app:destination="@id/photoDetailFragment" />
-    </fragment>
-    <fragment
-            android:id="@+id/photoDetailFragment"
-            android:name="ui.photo_detail.PhotoDetailFragment"
-            android:label="PhotoDetailFragment"
-            tools:layout="@layout/fragment_photo_detail">
-        <argument
-                android:name="photo"
-                app:argType="domain.model.Photo" />
-        <argument
-                android:name="position"
-                app:argType="integer" />
-    </fragment>
+            android:id="@+id/convertFragment"
+            android:name="ui.convert.ConvertFragment"
+            android:label="ConvertFragment"
+            tools:layout="@layout/fragment_convert" />
 </navigation>

@@ -2,7 +2,7 @@ package util.extension
 
 import android.os.Environment
 import android.util.Log
-import com.xodus.templatefive.BuildConfig
+import com.android.currex.BuildConfig
 import main.ApplicationClass
 import util.Constant
 import java.io.File

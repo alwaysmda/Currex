@@ -15,14 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.xodus.templatefive.R
-import com.xodus.templatefive.databinding.DialogCustomBinding
+import com.android.currex.R
+import com.android.currex.databinding.DialogCustomBinding
 import main.ApplicationClass
 import util.extension.getScreenWidth
 
-
 class CustomDialog(private val app: ApplicationClass, private val customView: Int = R.layout.dialog_custom) : DialogFragment() {
-
     //Element
     private var title: String = ""
     private var content: String = ""
@@ -106,7 +104,6 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
         init()
         return this
     }
-
 
     fun setContentCenter(): CustomDialog {
         isContentCenter = true
@@ -254,7 +251,6 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
         onViewCreated(this, view)
     }
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // the content
         val root = RelativeLayout(requireActivity())
@@ -332,8 +328,6 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
                     }
                 }
             }
-
         }
     }
-
 }

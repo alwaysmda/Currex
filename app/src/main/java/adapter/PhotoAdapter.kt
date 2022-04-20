@@ -3,14 +3,12 @@ package adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.xodus.templatefive.R
-import com.xodus.templatefive.databinding.RowPhotoBinding
-import com.xodus.templatefive.databinding.RowPhotoStateBinding
+import com.android.currex.R
+import com.android.currex.databinding.RowPhotoBinding
 import domain.model.Photo
 import main.ApplicationClass
 import util.extension.translate
@@ -43,7 +41,7 @@ class PhotoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (loading && viewType == currentList.size) {
-            LoadingHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_photo_state, parent, false))
+            PhotoHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_photo, parent, false))
         } else {
             PhotoHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_photo, parent, false))
         }
@@ -59,8 +57,8 @@ class PhotoAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is LoadingHolder -> holder.bind()
-            is PhotoHolder   -> holder.bind(getItem(position))
+            is PhotoHolder -> holder.bind(getItem(position))
+            is PhotoHolder -> holder.bind(getItem(position))
         }
 
     }
@@ -73,21 +71,9 @@ class PhotoAdapter(
                 data = photo
                 executePendingBindings()
                 rowPhotoCvContent.setOnClickListener { onItemClick(bindingAdapterPosition, photo) }
-                rowPhotoTvText.text = translate("${this@PhotoAdapter.app.m.id} : ${photo.id}")
+                rowPhotoTvText.text = translate("1 : ${photo.id}")
                 ViewCompat.setTransitionName(rowPhotoIvPhoto, "transPhoto$bindingAdapterPosition")
                 ViewCompat.setTransitionName(rowPhotoTvText, "transId$bindingAdapterPosition")
-            }
-        }
-    }
-
-    inner class LoadingHolder(val binding: RowPhotoStateBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-            with(binding) {
-                app = this@PhotoAdapter.app
-                rowPhotoBtnRetry.isVisible = retry
-                rowPhotoPbLoading.isVisible = retry.not()
-                executePendingBindings()
-                rowPhotoBtnRetry.setOnClickListener { onRetryClick() }
             }
         }
     }

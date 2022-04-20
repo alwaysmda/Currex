@@ -4,9 +4,9 @@
     <color name="darkBlueColorPrimary">#AD1457</color>
     <color name="darkBlueColorPrimaryDark">#880E4F</color>
     <color name="darkBlueColorAccent">#FFEB3B</color>
-    <color name="darkBlueBackground0">#000000</color>
-    <color name="darkBlueBackground1">#242424</color>
-    <color name="darkBlueBackground2">#484848</color>
+    <color name="darkBlueBackground0">#1c243b</color>
+    <color name="darkBlueBackground1">#2c344b</color>
+    <color name="darkBlueBackground2">#5c647b</color>
     <color name="darkBlueText0">#FFFFFF</color>
     <color name="darkBlueText1">#DBDBDB</color>
     <color name="darkBlueText2">#B7B7B7</color>
@@ -31,6 +31,8 @@
     <color name="lightPinkRipple">@color/md_white_1000</color>
     <!-- google's material design colours from
     http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
+    <color name="main_red">#B71C1C</color>
+    <color name="main_green">#1B5E20</color>
 
     <!--reds-->
     <color name="md_red_50">#FFEBEE</color>

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">TemplateFive</string>
+    <string name="app_name">Currex</string>
+    <string name="tapAgainToExit">Tap again to exit</string>
 </resources>

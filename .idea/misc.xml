@@ -3,20 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1644829256013.xml" value="0.8590785907859079" />
+        <entry key="../../../../layout/compose-model-1644832616120.xml" value="0.625" />
         <entry key="app/src/main/res/drawable/shape_shadow.xml" value="0.44256410256410256" />
         <entry key="app/src/main/res/layout/activity_base.xml" value="0.21073961499493415" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/dialog_custom.xml" value="0.2368659420289855" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.21200607902735563" />
+        <entry key="app/src/main/res/layout/fragment_convert.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/fragment_photo_detail.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/fragment_photo_list.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/fragment_template.xml" value="0.21073961499493415" />
         <entry key="app/src/main/res/layout/fragment_template_binding.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/fragment_template_binfing.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/fragment_template_mvi.xml" value="0.34371833839918947" />
+        <entry key="app/src/main/res/layout/row_balance.xml" value="0.26992753623188404" />
+        <entry key="app/src/main/res/layout/row_chat.xml" value="0.2717391304347826" />
         <entry key="app/src/main/res/layout/row_photo.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/row_photo_state.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/row_template.xml" value="0.21073961499493415" />
         <entry key="app/src/main/res/layout/row_template_state.xml" value="0.2740036231884058" />
+        <entry key="app/src/main/res/layout/row_user.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/toolbar_chat.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/toolbar_photo_detail.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/toolbar_photo_list.xml" value="0.34371833839918947" />
         <entry key="app/src/main/res/layout/toolbar_template.xml" value="0.55" />

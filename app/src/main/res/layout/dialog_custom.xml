@@ -30,7 +30,6 @@
                     android:padding="12dp"
                     android:textColor="?attr/colorText2"
                     android:textSize="@dimen/textLarge"
-                    app:fonti="@{app.m.fontBold}"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Title" />
 
@@ -45,7 +44,6 @@
                     android:scrollbars="vertical"
                     android:textColor="?attr/colorText0"
                     android:textSize="@dimen/textMedium"
-                    app:fonti="@{app.m.fontMedium}"
                     app:layout_constraintTop_toBottomOf="@id/dialogCustom_tvTitle"
                     tools:text="Content" />
 
@@ -85,7 +83,6 @@
                         android:textSize="@dimen/textMedium"
                         app:backgroundTint="@color/md_orange_700"
                         app:cornerRadius="@dimen/radiusSmall"
-                        app:fonti="@{app.m.fontBold}"
                         tools:text="Neutral" />
 
                 <com.google.android.material.button.MaterialButton
@@ -101,7 +98,6 @@
                         android:textSize="@dimen/textMedium"
                         app:backgroundTint="@color/md_red_700"
                         app:cornerRadius="@dimen/radiusSmall"
-                        app:fonti="@{app.m.fontBold}"
                         tools:text="Negative" />
 
                 <com.google.android.material.button.MaterialButton
@@ -119,7 +115,6 @@
                         android:textSize="@dimen/textMedium"
                         app:backgroundTint="@color/md_green_700"
                         app:cornerRadius="@dimen/radiusSmall"
-                        app:fonti="@{app.m.fontBold}"
                         tools:text="Positive" />
             </LinearLayout>
 
