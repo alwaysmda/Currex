@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="domain.model.Rate" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rowCurrency_clParent"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/rowCurrency_vBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@drawable/shape_item_background" />
+
+        <ImageView
+            android:id="@+id/rowCurrency_ivBullet"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="@dimen/paddingMedium"
+            android:contentDescription="@{data.name}"
+            android:src="@drawable/ic_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorText0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/rowCurrency_tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/paddingSmall"
+            android:fontFamily="@font/font_en_medium"
+            android:gravity="center"
+            android:text="@{data.name}"
+            android:textColor="?attr/colorText0"
+            android:textSize="@dimen/textLarge"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rowCurrency_ivBullet"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="USD" />
+
+        <ImageView
+            android:id="@+id/rowCurrency_ivSelected"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="@dimen/paddingLargeX"
+            android:src="@drawable/ic_sell"
+            app:isVisible="@{data.selected}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorText0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -9,6 +9,8 @@ data class Rate(
     val name: String,
     var value: Double,
     var selected: Boolean = false,
+    var isSell: Boolean = false,
+    var isReceive: Boolean = false,
 ) : Parcelable {
 
     val valueString: String

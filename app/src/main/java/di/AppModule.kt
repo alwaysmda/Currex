@@ -1,6 +1,9 @@
 package di
 
 import android.content.Context
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+import com.example.currex.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +28,11 @@ object AppModule {
     @Provides
     fun providePrefManager(app: ApplicationClass): PrefManager =
         PrefManager(app)
+
+    @Singleton
+    @Provides
+    fun provideRecyclerViewAnimation(app: ApplicationClass): LayoutAnimationController =
+        AnimationUtils.loadLayoutAnimation(app, R.anim.anim_layout_animation)
 
     @ExperimentalCoroutinesApi
     @Singleton

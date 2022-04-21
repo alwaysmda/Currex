@@ -22,6 +22,7 @@
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">?android:colorBackground</item>
 
+
         <!--        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>-->
 
     </style>

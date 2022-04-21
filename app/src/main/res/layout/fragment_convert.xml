@@ -189,6 +189,7 @@
                             android:id="@+id/convert_etSell"
                             style="@style/GeneralText"
                             android:layout_width="0dp"
+                            android:maxLength="30"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/paddingMedium"
                             android:gravity="center"
@@ -255,6 +256,7 @@
                             style="@style/GeneralText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:maxLength="30"
                             android:layout_marginHorizontal="@dimen/paddingMedium"
                             android:gravity="center"
                             android:hint="@string/receive"
@@ -287,17 +289,29 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/convert_tvError"
+                    android:id="@+id/convert_tvLastUpdate"
+                    style="@style/GeneralText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingMedium"
+                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
+                    android:alpha="0.5"
+                    android:text="@{vm.lastUpdateText}"
+                    app:layout_constraintTop_toBottomOf="@id/convert_cvReceive"
+                    tools:text="Last Update @12:12:12" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/convert_tvValidationError"
                     style="@style/GeneralText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/paddingLargeXXX"
-                    android:layout_marginTop="@dimen/paddingSmall"
+                    android:layout_marginTop="@dimen/paddingLargeXXX"
                     android:gravity="center"
                     android:text="@{vm.validationErrorText}"
                     android:textColor="@color/main_red"
                     app:isVisible="@{vm.validationErrorTextVisibility}"
-                    app:layout_constraintTop_toBottomOf="@id/convert_cvReceive"
+                    app:layout_constraintTop_toBottomOf="@id/convert_tvLastUpdate"
                     tools:text="Insufficient balance" />
 
                 <com.google.android.material.button.MaterialButton
@@ -319,8 +333,8 @@
                     app:iconGravity="textStart"
                     app:iconSize="20dp"
                     app:iconTint="?attr/colorText0"
-                    app:layout_constraintTop_toBottomOf="@id/convert_tvError"
-                    app:layout_goneMarginTop="@dimen/paddingMedium"
+                    app:layout_constraintTop_toBottomOf="@id/convert_tvValidationError"
+                    app:layout_goneMarginTop="@dimen/paddingLargeXX"
                     app:rippleColor="?attr/colorRipple" />
 
                 <com.google.android.material.textview.MaterialTextView

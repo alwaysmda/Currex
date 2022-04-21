@@ -1,7 +1,10 @@
 package ui.base
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import com.example.currex.R
 import com.example.currex.databinding.ActivityBaseBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,20 +21,14 @@ class BaseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_Dark_Blue)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.navigationBarDividerColor = ContextCompat.getColor(baseContext, R.color.md_black_1000)
+            window.navigationBarColor = ContextCompat.getColor(baseContext, R.color.md_black_1000)
+        }
         _binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //        binding.baseNvNavigation.post { barHeight = binding.baseNvNavigation.height }
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.baseActivity_fragment) as NavHostFragment
-        //        NavigationUI.setupWithNavController(binding.baseNvNavigation, navHostFragment.navController)
-        //        setNavigationTabs()
-        //        app.nativeBillingHelper = NativeBillingV4Helper(this, app)
-        //        app.googleBillingHelper = GoogleBillingV4Helper(this)
-        //        binding.baseNvNavigation.setOnItemSelectedListener { item ->
-        // In order to get the expected behavior, you have to call default Navigation method manually
-        //            NavigationUI.onNavDestinationSelected(item, navHostFragment.navController)
-        //            return@setOnItemSelectedListener true
-        //        }
     }
 }

@@ -222,3 +222,19 @@ fun TextView.bold() {
 fun TextView.boldRemove() {
     paintFlags = paintFlags and Paint.FAKE_BOLD_TEXT_FLAG.inv()
 }
+
+
+fun View.fadeInOut() {
+    this.animate().alpha(0F).setStartDelay(0).setDuration(0).withEndAction {
+        this.animate().alpha(1F).setStartDelay(0).setDuration(300).withEndAction {
+            this.animate().alpha(0.3F).setStartDelay(0).setDuration(300).withEndAction {
+                this.animate().alpha(1F).setStartDelay(0).setDuration(300).withEndAction {
+                    this.animate().alpha(0.3F).setStartDelay(0).setDuration(300).withEndAction {
+                        this.animate().alpha(1F).setStartDelay(0).setDuration(300).withEndAction {
+                        }.start()
+                    }.start()
+                }.start()
+            }.start()
+        }.start()
+    }.start()
+}

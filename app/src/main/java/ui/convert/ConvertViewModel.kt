@@ -18,6 +18,7 @@ import main.ApplicationClass
 import ui.base.BaseViewModel
 import ui.dialog.CustomDialog
 import util.Constant
+import util.extension.convertTimestampToDate
 import java.util.*
 import javax.inject.Inject
 
@@ -35,6 +36,7 @@ class ConvertViewModel @Inject constructor(
     private var sellRate = Rate("", 0.0)
     private var receiveRate = Rate("", 0.0)
     private var lastConvertResult = ConvertResult(0.0, 0.0, 0.0, 0.0, false, "", "")
+    private var isSelectingSellCurrency = false
 
     //Binding
     var loadingVisibility = MutableStateFlow(true)
@@ -45,6 +47,7 @@ class ConvertViewModel @Inject constructor(
     var contentVisibility = MutableStateFlow(false)
     var sellCurrencyText = MutableStateFlow("")
     var receiveCurrencyText = MutableStateFlow("")
+    var lastUpdateText = MutableStateFlow("")
     var validationErrorText = MutableStateFlow("")
     var validationErrorTextVisibility = MutableStateFlow(false)
     var convertButtonEnabled = MutableStateFlow(false)
@@ -89,11 +92,17 @@ class ConvertViewModel @Inject constructor(
     }
 
     override fun onSellCurrencyClick() {
-
+        isSelectingSellCurrency = true
+        viewModelScope.launch {
+            _event.emit(ConvertEvents.NavCurrencyList(rateList.cloned(), sellRate, receiveRate))
+        }
     }
 
     override fun onReceiveCurrencyClick() {
-
+        isSelectingSellCurrency = false
+        viewModelScope.launch {
+            _event.emit(ConvertEvents.NavCurrencyList(rateList.cloned(), sellRate, receiveRate))
+        }
     }
 
     override fun onConvertClick() {
@@ -132,20 +141,37 @@ class ConvertViewModel @Inject constructor(
         }
     }
 
+    override fun onCurrencyChanged(rate: Rate) {
+        if (isSelectingSellCurrency) {
+            sellRate = rate
+            sellCurrencyText.value = sellRate.name
+        } else {
+            receiveRate = rate
+            receiveCurrencyText.value = receiveRate.name
+        }
+        val balance = convertUseCases.sortBalanceUseCase(balanceList.cloned(), sellRate, receiveRate)
+        balanceList.clear()
+        balanceList.addAll(balance)
+        viewModelScope.launch {
+            _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
+        }
+        onSellTextChanged(lastConvertResult.sellString)
+    }
+
     private fun getRates(): Job {
         return viewModelScope.launch {
-//            while (isActive) {
-            convertUseCases.getExchangeRateUseCase().onEach {
-                if (isActive) {
-                    when (it) {
-                        is DataState.Loading -> onGetRatesLoading()
-                        is DataState.Failure -> onGetRatesFailure(it)
-                        is DataState.Success -> onGetRatesSuccess(it)
+            while (isActive) {
+                convertUseCases.getExchangeRateUseCase().onEach {
+                    if (isActive) {
+                        when (it) {
+                            is DataState.Loading -> onGetRatesLoading()
+                            is DataState.Failure -> onGetRatesFailure(it)
+                            is DataState.Success -> onGetRatesSuccess(it)
+                        }
                     }
-                }
-            }.launchIn(viewModelScope)
-            delay(Constant.CON_REFRESH_DELAY_MILLIS)
-//            }
+                }.launchIn(viewModelScope)
+                delay(Constant.CON_REFRESH_DELAY_MILLIS)
+            }
         }
     }
 
@@ -185,6 +211,8 @@ class ConvertViewModel @Inject constructor(
             failVisibility.value = false
             errorVisibility.value = false
             contentVisibility.value = true
+            val time = convertTimestampToDate(System.currentTimeMillis(), "HH:mm:ss")
+            lastUpdateText.value = app.getString(R.string.last_update, time)
             rateList.clear()
             rateList.addAll(result.data)
             if (balanceList.isEmpty()) {

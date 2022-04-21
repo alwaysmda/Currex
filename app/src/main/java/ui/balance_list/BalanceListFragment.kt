@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.currex.R
 import com.example.currex.databinding.FragmentBalanceListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import ui.base.BaseFragment
 import util.extension.snack
 
@@ -41,18 +41,20 @@ class BalanceListFragment : BaseFragment<FragmentBalanceListBinding, BalanceList
         binding.apply {
             adapter = BalanceLargeAdapter(viewModel.app)
             balanceListRvBalance.adapter = adapter
+            balanceListRvBalance.setHasFixedSize(true)
+            balanceListRvBalance.layoutAnimation = viewModel.app.recyclerViewAnimation
         }
     }
 
 
-    private fun observeEvents() = viewLifecycleOwner.lifecycleScope.launch {
-        viewModel.event.collectLatest {
+    private fun observeEvents() {
+        viewModel.event.onEach {
             when (it) {
                 is BalanceListEvents.Rebind            -> binding.vm = viewModel
                 is BalanceListEvents.Snack             -> snack(binding.root, it.message)
                 is BalanceListEvents.UpdateBalanceList -> adapter.submitList(it.list)
                 is BalanceListEvents.NavBack           -> findNavController().popBackStack()
             }
-        }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

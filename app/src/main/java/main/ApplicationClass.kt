@@ -1,6 +1,7 @@
 package main
 
 import android.app.Application
+import android.view.animation.LayoutAnimationController
 import dagger.hilt.android.HiltAndroidApp
 import util.Constant
 import util.PrefManager
@@ -10,6 +11,9 @@ import javax.inject.Inject
 class ApplicationClass : Application() {
     @Inject
     lateinit var prefManager: PrefManager
+
+    @Inject
+    lateinit var recyclerViewAnimation: LayoutAnimationController
 
     companion object {
         @Volatile
@@ -45,10 +49,10 @@ class ApplicationClass : Application() {
 + show remaining free conversion count
 + show expiration error on request fail
 + pass error code from api and convert to error string later
-- add select currency page
-- error animation
-- recyclerview animation
-- edittext length limit
++ add select currency page
++ error animation
++ recyclerview animation
++ edittext length limit
 - add developer setting
     - reset balance
     - initial balance (name and value)

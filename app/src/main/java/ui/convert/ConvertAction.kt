@@ -1,5 +1,6 @@
 package ui.convert
 
+import domain.model.Rate
 import ui.base.BaseAction
 
 interface ConvertAction : BaseAction {
@@ -11,4 +12,5 @@ interface ConvertAction : BaseAction {
     fun onReceiveTextChanged(text: String)
     fun onConvertClick()
     fun onBalanceMoreClick()
+    fun onCurrencyChanged(rate: Rate)
 }

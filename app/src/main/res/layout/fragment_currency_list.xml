@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="ui.balance_list.BalanceListViewModel" />
+            type="ui.currency_list.CurrencyListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,13 +16,13 @@
         android:background="?attr/colorBackground1">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/balanceList_tvTitle"
+            android:id="@+id/currencyList_tvTitle"
             style="@style/GeneralText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimenToolbar"
             android:background="?attr/colorBackground0"
             android:gravity="center"
-            android:text="@string/my_balance"
+            android:text="@string/currency_list"
             android:textSize="@dimen/textLargeXX"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,15 +34,15 @@
             android:onClick="@{() -> vm.action.onBackClick()}"
             app:cornerRadius="18dp"
             app:icon="@drawable/ic_arrow_left"
-            app:layout_constraintBottom_toBottomOf="@id/balanceList_tvTitle"
+            app:layout_constraintBottom_toBottomOf="@id/currencyList_tvTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/balanceList_tvTitle" />
+            app:layout_constraintTop_toTopOf="@id/currencyList_tvTitle" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@drawable/shape_shadow"
-            app:layout_constraintTop_toBottomOf="@id/balanceList_tvTitle" />
+            app:layout_constraintTop_toBottomOf="@id/currencyList_tvTitle" />
 
         <!--Content-->
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -93,11 +93,11 @@
                             style="@style/GeneralText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/paddingMedium"
                             android:layout_weight="1"
                             android:hint="@string/search"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
-                            android:layout_marginEnd="@dimen/paddingMedium"
                             android:maxLength="10"
                             android:text="@={vm.searchText}"
                             android:textColorHint="@color/md_grey_500" />
@@ -107,17 +107,17 @@
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:alpha="0.5"
-                            app:isVisible="@{vm.clearTextVisibility}"
                             android:onClick="@{() -> vm.action.onClearTextClick()}"
                             app:icon="@drawable/ic_close"
                             app:iconSize="14dp"
-                            app:iconTint="?attr/colorText0" />
+                            app:iconTint="?attr/colorText0"
+                            app:isVisible="@{vm.clearTextVisibility}" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/balanceList_rvBalance"
+                android:id="@+id/currencyList_rvCurrency"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"

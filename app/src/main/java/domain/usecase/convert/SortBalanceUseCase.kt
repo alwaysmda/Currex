@@ -18,7 +18,7 @@ class SortBalanceUseCase @Inject constructor(private val app: ApplicationClass) 
             list.remove(item)
         }
 
-        result.addAll(list)
+        result.addAll(list.onEach { it.selected = false })
         app.prefManager.setPref(Constant.PREF_BALANCE, Gson().toJson(result))
         app.prefManager.setPref(Constant.PREF_SELL, sell.name)
         app.prefManager.setPref(Constant.PREF_RECEIVE, receive.name)

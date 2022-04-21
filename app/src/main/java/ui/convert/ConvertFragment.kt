@@ -14,9 +14,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.currex.R
 import com.example.currex.databinding.FragmentConvertBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import domain.model.Rate
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import ui.base.BaseFragment
+import util.Constant
+import util.extension.fadeInOut
+import util.extension.getBackStackData
 import util.extension.snack
 import java.util.*
 
@@ -40,6 +44,9 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
         observeEvents()
         setBackHandler()
         viewModel.action.onStart()
+        getBackStackData<Rate>(Constant.ARG_RATE) {
+            viewModel.action.onCurrencyChanged(it)
+        }
         return binding.root
     }
 
@@ -50,6 +57,7 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
             }
             convertRvBalance.adapter = adapter
             convertRvBalance.setHasFixedSize(true)
+            convertRvBalance.layoutAnimation = viewModel.app.recyclerViewAnimation
             sellTextWatcher = convertEtSell.addTextChangedListener(afterTextChanged = {
                 viewModel.action.onSellTextChanged(it.toString())
             })
@@ -79,14 +87,14 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
         })
     }
 
-    private fun observeEvents() = viewLifecycleOwner.lifecycleScope.launch {
-        viewModel.event.collectLatest {
+    private fun observeEvents() {
+        viewModel.event.onEach {
             when (it) {
                 is ConvertEvents.Rebind            -> binding.vm = viewModel
                 is ConvertEvents.Snack             -> snack(binding.root, it.message)
-                is ConvertEvents.UpdateBalanceList -> adapter.submitList(it.list)
+                is ConvertEvents.UpdateBalanceList -> adapter.submitList(it.list) { binding.convertRvBalance.smoothScrollToPosition(0) }
                 is ConvertEvents.NavBalanceList    -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToBalanceListFragment(it.list.toTypedArray()))
-                is ConvertEvents.NavCurrencyList   -> Unit
+                is ConvertEvents.NavCurrencyList   -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToCurrencyListFragment(it.list.toTypedArray(), it.sellRate, it.receiveRate))
                 is ConvertEvents.ShowDialog        -> it.dialog.show(childFragmentManager)
                 is ConvertEvents.UpdateSellText    -> {
                     binding.convertEtSell.apply {
@@ -107,6 +115,11 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
                     }
                 }
             }
-        }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        viewModel.validationErrorTextVisibility.onEach {
+            if (it) {
+                binding.convertTvValidationError.fadeInOut()
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }
