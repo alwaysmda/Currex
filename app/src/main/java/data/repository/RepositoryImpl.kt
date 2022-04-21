@@ -17,7 +17,7 @@ class RepositoryImpl @Inject constructor(
     private val ratesMapper: RatesMapper,
 ) : ApiResponseHandler(app), Repository {
     override suspend fun getExchangeRates(): DataState<ArrayList<Rate>> {
-        return when (val response = call(api.getExchangeRates())) {
+        return when (val response = call { api.getExchangeRates() }) {
             is DataState.Loading -> response
             is DataState.Failure -> response
             is DataState.Success -> {

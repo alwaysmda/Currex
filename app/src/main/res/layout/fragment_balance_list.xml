@@ -22,7 +22,7 @@
             android:layout_height="@dimen/dimenToolbar"
             android:background="?attr/colorBackground0"
             android:gravity="center"
-            android:text="@string/app_name"
+            android:text="@string/my_balance"
             android:textSize="@dimen/textLargeXX"
             app:layout_constraintTop_toTopOf="parent" />
 

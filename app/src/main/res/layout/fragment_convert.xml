@@ -62,6 +62,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/convert_clContent"
                 android:layout_width="match_parent"
+                android:paddingBottom="@dimen/paddingLargeXXX"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true">
 

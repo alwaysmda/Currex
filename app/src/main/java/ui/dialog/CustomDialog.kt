@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window.FEATURE_NO_TITLE
 import android.widget.RelativeLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -239,7 +238,6 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
         if (customView == R.layout.dialog_custom) {
             _binding = DialogCustomBinding.inflate(inflater).apply {
                 lifecycleOwner = viewLifecycleOwner
-                app = this@CustomDialog.app
             }
             init()
         }
@@ -276,9 +274,7 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
             dialogCustomTvContent.movementMethod = ScrollingMovementMethod()
             with(dialogCustomTvTitle) {
                 text = title
-                if (titleColor == 0) {
-                    setTextColor(ContextCompat.getColor(this@CustomDialog.app, R.color.md_black_1000))
-                } else {
+                if (titleColor != 0) {
                     setTextColor(titleColor)
                 }
                 if (isTitleCenter) {
@@ -287,9 +283,7 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
             }
             with(dialogCustomTvContent) {
                 text = content
-                if (contentColor == 0) {
-                    setTextColor(ContextCompat.getColor(this@CustomDialog.app, R.color.md_black_1000))
-                } else {
+                if (contentColor != 0) {
                     setTextColor(contentColor)
                 }
                 if (isContentCenter) {

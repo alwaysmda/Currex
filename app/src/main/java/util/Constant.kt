@@ -17,4 +17,5 @@ object Constant {
     const val CON_RETRY_DELAY = 5
     const val CON_FREE_CONVERT_COUNT = 5
     const val CON_REFRESH_DELAY_MILLIS = 5 * 1000L
+    const val CON_HOME_BALANCE_COUNT = 10
 }

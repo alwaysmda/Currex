@@ -19,7 +19,6 @@ open class BaseFragment<VB : ViewDataBinding, E : BaseEvent, A : BaseAction, VM 
         _binding = DataBindingUtil.inflate<VB>(inflater, layoutId, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             setVariable(BR.vm, viewModel)
-            setVariable(BR.app, viewModel.app)
         }
         baseActivity = requireActivity() as BaseActivity
         return binding.root

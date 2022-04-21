@@ -11,12 +11,22 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="dismiss">Dismiss</string>
     <plurals name="retrying_in_x_sec">
-        <item quantity="one">Retrying in %d second</item>
-        <item quantity="other">Retrying in %d seconds</item>
+        <item quantity="one">Retrying in %1$d second</item>
+        <item quantity="other">Retrying in %1$d seconds</item>
     </plurals>
-    <string name="retrying_in_x_seconds">Retrying in %d seconds</string>
-    <string name="retrying_in_x_second">Retrying in %d second</string>
+    <plurals name="x_free_conversion_left">
+        <item quantity="one">%1$d free conversion left</item>
+        <item quantity="other">%1$d free conversions left</item>
+    </plurals>
+    <string name="searchppp">Search %1$d okok</string>
     <string name="search">Search</string>
     <string name="no_result">No result</string>
     <string name="no_currency_found">No currency found with current filter.</string>
+    <string name="insufficient_balance">Insufficient balance</string>
+    <string name="insufficient_balance_for_fee">Balance is not enough to pay fee</string>
+    <string name="convert_success_title">Convert Successful</string>
+    <string name="convert_success_desc">You have converted %1$s %2$s to %3$s %4$s.</string>
+    <string name="convert_fee_desc">Commission Fee : %1$s %2$s</string>
+    <string name="confirm">Confirm</string>
+    <string name="my_balance">My Balance</string>
 </resources>

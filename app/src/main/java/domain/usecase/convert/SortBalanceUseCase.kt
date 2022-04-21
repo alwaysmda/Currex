@@ -9,11 +9,11 @@ import javax.inject.Inject
 class SortBalanceUseCase @Inject constructor(private val app: ApplicationClass) {
     operator fun invoke(list: ArrayList<Rate>, sell: Rate, receive: Rate): ArrayList<Rate> {
         val result = arrayListOf<Rate>()
-        list.firstOrNull { it.name == sell.name }?.let { item ->
+        list.first { it.name == sell.name }.also { item ->
             result.add(item.copy(selected = true))
             list.remove(item)
         }
-        list.firstOrNull { it.name == receive.name }?.let { item ->
+        list.first { it.name == receive.name }.also { item ->
             result.add(item.copy(selected = true))
             list.remove(item)
         }

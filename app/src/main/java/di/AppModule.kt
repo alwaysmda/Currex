@@ -35,6 +35,7 @@ object AppModule {
             AddMissingBalanceUseCase(app),
             SortBalanceUseCase(app),
             ConvertRateUseCase(app),
+            ApplyConvertUseCase(app),
         )
     }
 

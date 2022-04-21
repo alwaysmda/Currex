@@ -87,6 +87,7 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
                 is ConvertEvents.UpdateBalanceList -> adapter.submitList(it.list)
                 is ConvertEvents.NavBalanceList    -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToBalanceListFragment(it.list.toTypedArray()))
                 is ConvertEvents.NavCurrencyList   -> Unit
+                is ConvertEvents.ShowDialog        -> it.dialog.show(childFragmentManager)
                 is ConvertEvents.UpdateSellText    -> {
                     binding.convertEtSell.apply {
                         removeTextChangedListener(sellTextWatcher)

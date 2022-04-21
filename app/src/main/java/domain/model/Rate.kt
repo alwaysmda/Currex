@@ -7,7 +7,7 @@ import util.extension.separateNumberBy3
 @Parcelize
 data class Rate(
     val name: String,
-    val value: Double,
+    var value: Double,
     var selected: Boolean = false,
 ) : Parcelable {
 
