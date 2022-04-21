@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="domain.model.Rate" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rowBalance_cvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/paddingSmall"
+        android:layout_marginTop="@dimen/paddingMedium"
+        android:layout_marginBottom="@dimen/paddingLargeX"
+        app:cardBackgroundColor="?attr/colorBackground0"
+        app:cardCornerRadius="@dimen/radiusLarge"
+        app:cardElevation="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="?attr/colorAccent"
+        app:strokeWidth="@{data.selected ? 2 : 0}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/paddingLargeXXX"
+            android:paddingVertical="@dimen/paddingLargeX">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rowBalance_tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_en_medium"
+                android:gravity="center"
+                android:text="@{data.valueString}"
+                android:textColor="?attr/colorText0"
+                android:textSize="@dimen/textLarge"
+                tools:text="123,000" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rowBalance_tvUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/paddingSmall"
+                android:alpha="0.7"
+                android:fontFamily="@font/font_en_medium"
+                android:gravity="center"
+                android:text="@{data.name}"
+                android:textColor="?attr/colorText0"
+                android:textSize="@dimen/textMedium"
+                tools:text="USD" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

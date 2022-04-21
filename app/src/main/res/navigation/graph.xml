@@ -1,12 +1,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/graph"
-        app:startDestination="@id/convertFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph"
+    app:startDestination="@id/convertFragment">
 
     <fragment
-            android:id="@+id/convertFragment"
-            android:name="ui.convert.ConvertFragment"
-            android:label="ConvertFragment"
-            tools:layout="@layout/fragment_convert" />
+        android:id="@+id/convertFragment"
+        android:name="ui.convert.ConvertFragment"
+        android:label="ConvertFragment"
+        tools:layout="@layout/fragment_convert">
+        <action
+            android:id="@+id/action_convertFragment_to_balanceListFragment"
+            app:destination="@id/balanceListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/balanceListFragment"
+        android:name="ui.balance_list.BalanceListFragment"
+        android:label="BalanceListFragment"
+        tools:layout="@layout/fragment_balance_list">
+        <argument
+            android:name="list"
+            app:argType="domain.model.Rate[]" />
+    </fragment>
 </navigation>

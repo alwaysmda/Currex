@@ -47,19 +47,8 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">?android:colorBackground</item>
-
-        <!--        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>-->
-
     </style>
 
-
-    <style name="BottomNavigationViewFontedFa" parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/font_fa_medium</item>
-    </style>
-
-    <style name="BottomNavigationViewFontedEn" parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/font_en_medium</item>
-    </style>
 
     <style name="ToolbarButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:inset">0dp</item>

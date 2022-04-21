@@ -47,7 +47,7 @@ data class RatesDto(
     val EGP: Double,
     val ERN: Double,
     val ETB: Double,
-    val EUR: Int,
+    val EUR: Double,
     val FJD: Double,
     val FKP: Double,
     val GBP: Double,

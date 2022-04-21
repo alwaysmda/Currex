@@ -2,7 +2,7 @@ package util.extension
 
 import android.os.Environment
 import android.util.Log
-import com.android.currex.BuildConfig
+import com.example.currex.BuildConfig
 import main.ApplicationClass
 import util.Constant
 import java.io.File

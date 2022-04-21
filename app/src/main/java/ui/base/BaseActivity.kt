@@ -2,9 +2,8 @@ package ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import com.android.currex.R
-import com.android.currex.databinding.ActivityBaseBinding
+import com.example.currex.R
+import com.example.currex.databinding.ActivityBaseBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,10 +19,11 @@ class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme_Dark_Blue)
         _binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //        binding.baseNvNavigation.post { barHeight = binding.baseNvNavigation.height }
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.baseActivity_fragment) as NavHostFragment
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.baseActivity_fragment) as NavHostFragment
         //        NavigationUI.setupWithNavController(binding.baseNvNavigation, navHostFragment.navController)
         //        setNavigationTabs()
         //        app.nativeBillingHelper = NativeBillingV4Helper(this, app)

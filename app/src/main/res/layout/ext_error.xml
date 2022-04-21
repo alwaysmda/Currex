@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="desc"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorBackground1">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="@dimen/paddingLargeXXX"
+            android:src="@drawable/ic_sad"
+            app:layout_constraintBottom_toTopOf="@id/ext_tvErrorTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="?attr/colorText0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ext_tvErrorTitle"
+            style="@style/GeneralText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{title}"
+            android:textSize="@dimen/textLargeX"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Something went wrong" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ext_tvErrorDesc"
+            style="@style/GeneralText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingLarge"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:text="@{desc}"
+            android:textSize="@dimen/textLarge"
+            app:layout_constraintTop_toBottomOf="@id/ext_tvErrorTitle"
+            tools:text="Retrying in 5 seconds" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

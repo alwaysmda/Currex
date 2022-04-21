@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.android.currex.R
-import com.android.currex.databinding.DialogCustomBinding
+import com.example.currex.R
+import com.example.currex.databinding.DialogCustomBinding
 import main.ApplicationClass
 import util.extension.getScreenWidth
 

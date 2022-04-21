@@ -1,7 +1,7 @@
 package util.extension
 
 import android.graphics.drawable.GradientDrawable
-import com.android.currex.R
+import com.example.currex.R
 
 fun getShape(
     orientation: GradientDrawable.Orientation,

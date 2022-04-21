@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="ui.balance_list.BalanceListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorBackground1">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/balanceList_tvTitle"
+            style="@style/GeneralText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimenToolbar"
+            android:background="?attr/colorBackground0"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textSize="@dimen/textLargeXX"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/GeneralButton.TextButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/paddingMedium"
+            android:onClick="@{() -> vm.action.onBackClick()}"
+            app:cornerRadius="18dp"
+            app:icon="@drawable/ic_arrow_left"
+            app:layout_constraintBottom_toBottomOf="@id/balanceList_tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/balanceList_tvTitle" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shape_shadow"
+            app:layout_constraintTop_toBottomOf="@id/balanceList_tvTitle" />
+
+        <!--Content-->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimenToolbar"
+            android:focusableInTouchMode="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_transparent_1000"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:fitsSystemWindows="true"
+                android:gravity="center"
+                android:minHeight="0dp"
+                app:elevation="0dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/paddingLargeX"
+                    android:layout_marginVertical="@dimen/paddingLarge"
+                    app:cardBackgroundColor="?attr/colorBackground0"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp"
+                    app:layout_scrollFlags="enterAlways|scroll">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="36dp"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/paddingMedium">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.7"
+                            android:contentDescription="@string/search"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_search"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="?attr/colorText0" />
+
+                        <EditText
+                            style="@style/GeneralText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/search"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLength="10"
+                            android:text="@={vm.searchText}"
+                            android:textColorHint="@color/md_grey_500"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/GeneralButton.TextButton"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:alpha="0.5"
+                            android:onClick="@{() -> vm.action.onClearTextClick()}"
+                            app:icon="@drawable/ic_close"
+                            app:iconSize="14dp"
+                            app:iconTint="?attr/colorText0" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/balanceList_rvBalance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:isVisible="@{!vm.failVisibility}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                tools:listitem="@layout/row_balance_large" />
+
+
+            <include
+                layout="@layout/ext_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:desc="@{vm.errorDescText}"
+                app:isVisible="@{vm.failVisibility}"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                app:title="@{vm.errorTitleText}" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

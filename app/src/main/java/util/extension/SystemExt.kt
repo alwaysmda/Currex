@@ -25,8 +25,8 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.android.currex.BuildConfig
-import com.android.currex.R
+import com.example.currex.BuildConfig
+import com.example.currex.R
 import com.google.android.material.snackbar.Snackbar
 import main.ApplicationClass
 import java.io.File

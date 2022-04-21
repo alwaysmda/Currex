@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 
-open class BaseFragment<VB : ViewDataBinding, E : BaseEvent, A : BaseAction, S : BaseState, VM : BaseViewModel<E, A, S>>(private val layoutId: Int) : Fragment() {
+open class BaseFragment<VB : ViewDataBinding, E : BaseEvent, A : BaseAction, VM : BaseViewModel<E, A>>(private val layoutId: Int) : Fragment() {
     private var _binding: VB? = null
     val binding: VB get() = _binding!!
     lateinit var viewModel: VM

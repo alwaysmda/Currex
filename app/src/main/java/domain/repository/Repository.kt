@@ -1,8 +1,8 @@
 package domain.repository
 
 import data.remote.DataState
-import domain.model.ResponseExchangeRate
+import domain.model.Rate
 
 interface Repository {
-    suspend fun getExchangeRates(): DataState<ResponseExchangeRate>
+    suspend fun getExchangeRates(): DataState<ArrayList<Rate>>
 }

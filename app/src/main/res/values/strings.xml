@@ -1,4 +1,22 @@
 <resources>
     <string name="app_name">Currex</string>
     <string name="tapAgainToExit">Tap again to exit</string>
+    <string name="sell">Sell</string>
+    <string name="currency_exchange">Currency Exchange</string>
+    <string name="my_balances">My Balances</string>
+    <string name="receive">Receive</string>
+    <string name="convert">Convert</string>
+    <string name="see_more">See more</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="dismiss">Dismiss</string>
+    <plurals name="retrying_in_x_sec">
+        <item quantity="one">Retrying in %d second</item>
+        <item quantity="other">Retrying in %d seconds</item>
+    </plurals>
+    <string name="retrying_in_x_seconds">Retrying in %d seconds</string>
+    <string name="retrying_in_x_second">Retrying in %d second</string>
+    <string name="search">Search</string>
+    <string name="no_result">No result</string>
+    <string name="no_currency_found">No currency found with current filter.</string>
 </resources>

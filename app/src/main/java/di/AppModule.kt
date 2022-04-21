@@ -7,8 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import domain.repository.Repository
-import domain.usecase.convert.ConvertUseCases
-import domain.usecase.convert.GetExchangeRateUseCase
+import domain.usecase.convert.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import main.ApplicationClass
 import util.PrefManager
@@ -30,9 +29,12 @@ object AppModule {
     @ExperimentalCoroutinesApi
     @Singleton
     @Provides
-    fun provideConvertUseCases(repository: Repository): ConvertUseCases {
+    fun provideConvertUseCases(app: ApplicationClass, repository: Repository): ConvertUseCases {
         return ConvertUseCases(
             GetExchangeRateUseCase(repository),
+            AddMissingBalanceUseCase(app),
+            SortBalanceUseCase(app),
+            ConvertRateUseCase(app),
         )
     }
 

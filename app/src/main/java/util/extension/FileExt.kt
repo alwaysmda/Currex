@@ -4,7 +4,7 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Environment
 import android.text.TextUtils
-import com.android.currex.BuildConfig
+import com.example.currex.BuildConfig
 import main.ApplicationClass
 import java.io.*
 import java.security.KeyFactory

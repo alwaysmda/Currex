@@ -1,72 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-                name="vm"
-                type="ui.convert.ConvertViewModel" />
+            name="vm"
+            type="ui.convert.ConvertViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorBackground1">
+        <!--Loading-->
+        <include
+            layout="@layout/ext_error"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorBackground1">
+            android:layout_marginTop="@dimen/dimenToolbar"
+            android:visibility="gone"
+            app:desc="@{vm.errorDescText}"
+            app:isVisible="@{vm.failVisibility}"
+            app:title="@{vm.errorTitleText}" />
+        <!--Error-->
+        <include
+            layout="@layout/ext_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimenToolbar"
+            android:visibility="gone"
+            app:isVisible="@{vm.loadingVisibility}" />
 
         <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/convert_tvTitle"
-                style="@style/GeneralText"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimenToolbar"
-                android:background="?attr/colorBackground0"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textSize="@dimen/textLarge"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/convert_tvTitle"
+            style="@style/GeneralText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimenToolbar"
+            android:background="?attr/colorBackground0"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textSize="@dimen/textLargeXX"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shape_shadow"
+            app:layout_constraintTop_toBottomOf="@id/convert_tvTitle" />
+
+        <!--Content-->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimenToolbar"
+            android:fillViewport="true"
+            android:visibility="visible"
+            app:isVisible="@{vm.contentVisibility}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/convert_clContent"
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@drawable/shape_shadow"
-                app:layout_constraintTop_toBottomOf="@id/convert_tvTitle" />
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
 
-        <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/convert_tvBalanceTitle"
-                style="@style/GeneralText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/paddingLargeXXX"
-                android:alpha="0.7"
-                android:textSize="@dimen/textLargeXX"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/convert_tvTitle"
-                tools:text="My Balances" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/convert_cvError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
+                    android:layout_marginTop="@dimen/paddingLargeX"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="?attr/colorBackground0"
+                    app:cardCornerRadius="@dimen/radiusLarge"
+                    app:cardElevation="10dp"
+                    app:isVisible="@{vm.errorVisibility}"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/convert_rvBalance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/paddingMedium"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/paddingLargeX"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/convert_tvBalanceTitle"
-                tools:listitem="@layout/row_balance" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/paddingLargeX"
+                        android:paddingVertical="@dimen/paddingMedium">
 
-        <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/convert_tvConvertTitle"
-                style="@style/GeneralText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/paddingLargeXXX"
-                android:alpha="0.7"
-                android:textSize="@dimen/textLargeXX"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/convert_rvBalance"
-                tools:text="Currency Exchange" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/convert_tvErrorTitle"
+                            style="@style/GeneralText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{vm.errorTitleText}"
+                            android:textSize="@dimen/textLargeX"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Something went wrong" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/convert_tvErrorDesc"
+                            style="@style/GeneralText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/paddingSmall"
+                            android:alpha="0.7"
+                            android:text="@{vm.errorDescText}"
+                            android:textSize="@dimen/textLarge"
+                            app:layout_constraintTop_toBottomOf="@id/convert_tvErrorTitle"
+                            tools:text="Retrying in 5 seconds" />
+
+                        <com.google.android.material.button.MaterialButton
+                            style="@style/GeneralButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> vm.action.onErrorDismissClick()}"
+                            android:text="@string/dismiss"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/convert_tvBalanceTitle"
+                    style="@style/GeneralText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/paddingLargeXXX"
+                    android:alpha="0.7"
+                    android:text="@string/my_balances"
+                    android:textSize="@dimen/textLargeX"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/convert_cvError"
+                    tools:text="My Balances" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/convert_rvBalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingMedium"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/paddingLargeXX"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/convert_tvBalanceTitle"
+                    tools:listitem="@layout/row_balance_small" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/convert_tvConvertTitle"
+                    style="@style/GeneralText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/paddingLargeXXX"
+                    android:alpha="0.7"
+                    android:text="@string/currency_exchange"
+                    android:textSize="@dimen/textLargeX"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/convert_rvBalance"
+                    tools:text="Currency Exchange" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/convert_cvSell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
+                    android:layout_marginTop="@dimen/paddingLarge"
+                    app:cardBackgroundColor="?attr/colorBackground0"
+                    app:cardCornerRadius="@dimen/radiusLarge"
+                    app:cardElevation="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/convert_tvConvertTitle">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/convert_clSell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/convert_ivSell"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="@dimen/paddingLargeX"
+                            android:contentDescription="@string/sell"
+                            android:src="@drawable/ic_sell"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/main_red" />
+
+                        <EditText
+                            android:id="@+id/convert_etSell"
+                            style="@style/GeneralText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/paddingMedium"
+                            android:gravity="center"
+                            android:hint="@string/sell"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:textColorHint="@color/md_grey_500"
+                            android:textSize="@dimen/textLargeX"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/convert_btnSellCurrency"
+                            app:layout_constraintStart_toEndOf="@id/convert_ivSell"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/convert_btnSellCurrency"
+                            style="@style/GeneralButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/paddingLarge"
+                            android:layout_marginEnd="@dimen/paddingLargeX"
+                            android:onClick="@{() -> vm.action.onSellCurrencyClick()}"
+                            android:text="@{vm.sellCurrencyText}"
+                            app:backgroundTint="?attr/colorPrimary"
+                            app:icon="@drawable/ic_arrow_down"
+                            app:iconGravity="end"
+                            app:iconSize="18dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="EUR" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/convert_cvReceive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
+                    android:layout_marginTop="@dimen/paddingMedium"
+                    app:cardBackgroundColor="?attr/colorBackground0"
+                    app:cardCornerRadius="@dimen/radiusLarge"
+                    app:cardElevation="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/convert_cvSell">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/convert_clReceive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/convert_ivReceive"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="@dimen/paddingLargeX"
+                            android:contentDescription="@string/receive"
+                            android:src="@drawable/ic_receive"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/main_green" />
+
+                        <EditText
+                            android:id="@+id/convert_etReceive"
+                            style="@style/GeneralText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/paddingMedium"
+                            android:gravity="center"
+                            android:hint="@string/receive"
+                            android:inputType="numberDecimal"
+                            android:textColorHint="@color/md_grey_500"
+                            android:textSize="@dimen/textLargeX"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/convert_btnReceiveCurrency"
+                            app:layout_constraintStart_toEndOf="@id/convert_ivReceive"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/convert_btnReceiveCurrency"
+                            style="@style/GeneralButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/paddingLarge"
+                            android:layout_marginEnd="@dimen/paddingLargeX"
+                            android:onClick="@{() -> vm.action.onReceiveCurrencyClick()}"
+                            android:text="@{vm.receiveCurrencyText}"
+                            app:backgroundTint="?attr/colorPrimary"
+                            app:icon="@drawable/ic_arrow_down"
+                            app:iconGravity="end"
+                            app:iconSize="18dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="EUR" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/convert_tvError"
+                    style="@style/GeneralText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
+                    android:layout_marginTop="@dimen/paddingSmall"
+                    android:gravity="center"
+                    android:text="@{vm.validationErrorText}"
+                    android:textColor="@color/main_red"
+                    app:isVisible="@{vm.validationErrorTextVisibility}"
+                    app:layout_constraintTop_toBottomOf="@id/convert_cvReceive"
+                    tools:text="Insufficient balance" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/convert_btnConvert"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
+                    android:layout_marginTop="@dimen/paddingSmall"
+                    android:enabled="@{vm.convertButtonEnabled}"
+                    android:fontFamily="@font/font_en_medium"
+                    android:onClick="@{() -> vm.action.onConvertClick()}"
+                    android:text="@string/convert"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorText0"
+                    android:textSize="@dimen/textMedium"
+                    app:cornerRadius="30dp"
+                    app:elevation="10dp"
+                    app:icon="@drawable/ic_convert"
+                    app:iconGravity="textStart"
+                    app:iconSize="20dp"
+                    app:iconTint="?attr/colorText0"
+                    app:layout_constraintTop_toBottomOf="@id/convert_tvError"
+                    app:layout_goneMarginTop="@dimen/paddingMedium"
+                    app:rippleColor="?attr/colorRipple" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/GeneralText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/paddingMedium"
+                    android:alpha="0.7"
+                    android:gravity="center"
+                    android:text="@{vm.freeConvertText}"
+                    app:layout_constraintTop_toBottomOf="@id/convert_btnConvert"
+                    tools:text="5 free conversions left" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

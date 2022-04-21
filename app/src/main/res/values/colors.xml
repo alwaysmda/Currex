@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--  Dark : Blue  -->
-    <color name="darkBlueColorPrimary">#AD1457</color>
-    <color name="darkBlueColorPrimaryDark">#880E4F</color>
+    <color name="darkBlueColorPrimary">#1976D2</color>
+    <color name="darkBlueColorPrimaryDark">#0D47A1</color>
     <color name="darkBlueColorAccent">#FFEB3B</color>
     <color name="darkBlueBackground0">#1c243b</color>
     <color name="darkBlueBackground1">#2c344b</color>
@@ -31,8 +31,8 @@
     <color name="lightPinkRipple">@color/md_white_1000</color>
     <!-- google's material design colours from
     http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
-    <color name="main_red">#B71C1C</color>
-    <color name="main_green">#1B5E20</color>
+    <color name="main_red">#D50000</color>
+    <color name="main_green">#00C853</color>
 
     <!--reds-->
     <color name="md_red_50">#FFEBEE</color>

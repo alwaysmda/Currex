@@ -65,8 +65,25 @@ fun shortenNumber(number: Long, decimalCount: Int = 1): String {
 }
 
 fun separateNumberBy3(number: Long): String {
-    val formatter = DecimalFormat("#,###,###")
+    val formatter = DecimalFormat("#,###,###.##")
     return formatter.format(number)
+}
+
+fun Double.separateNumberBy3(): String {
+    val remaining = this % 1F
+    val formatter = DecimalFormat("#,###,###")
+    val result = formatter.format(this)
+    return if (remaining == 0.0) {
+        result
+    } else {
+        val decimal = remaining.toString()
+        val end = if (decimal.length > 4) 4 else decimal.length
+        "$result${decimal.substring(1, end)}"
+    }
+}
+
+fun String.extractNumbers(): String {
+    return this.filter { it.isDigit() || it == '.' }
 }
 
 fun convertBundleToString(bundle: Bundle?): String {

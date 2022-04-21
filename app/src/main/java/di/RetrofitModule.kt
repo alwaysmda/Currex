@@ -1,6 +1,6 @@
 package di
 
-import com.android.currex.BuildConfig
+import com.example.currex.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -26,12 +26,11 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideTemplateClient(): OkHttpClient.Builder {
+    fun provideClient(): OkHttpClient.Builder {
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
-        //.addInterceptor(GsonConverterFactory.create(gson))
         if (BuildConfig.DEBUG) {
             okHttpClient.addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
         }
@@ -40,10 +39,10 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideTemplateApi(gson: Gson, templateClient: OkHttpClient.Builder): Api =
+    fun provideApi(gson: Gson, client: OkHttpClient.Builder): Api =
         Retrofit
             .Builder()
-            .client(templateClient.build())
+            .client(client.build())
             .baseUrl(Constant.CON_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

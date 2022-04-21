@@ -2,12 +2,12 @@ package util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.currex.BuildConfig
 import main.ApplicationClass
 import util.Constant.CON_AES_KEY
-import util.Constant.CON_PREF_NAME
 
 class PrefManager(appClass: ApplicationClass) {
-    private val pref: SharedPreferences = appClass.getSharedPreferences(CON_PREF_NAME, Context.MODE_PRIVATE)
+    private val pref: SharedPreferences = appClass.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE)
 
     fun getStringPref(key: String): String? {
         return try {

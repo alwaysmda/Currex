@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rowBalance_cvMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/paddingSmall"
+        android:layout_marginTop="@dimen/paddingMedium"
+        android:layout_marginBottom="@dimen/paddingLargeX"
+        app:cardBackgroundColor="?attr/colorBackground0"
+        app:cardCornerRadius="@dimen/radiusLarge"
+        app:cardElevation="10dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/paddingLargeXXX"
+            android:paddingVertical="@dimen/paddingLargeX">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/rowBalance_tvMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_en_medium"
+                android:gravity="center"
+                android:text="@string/see_more"
+                android:textColor="?attr/colorText0"
+                android:textSize="@dimen/textLarge" />
+
+            <ImageView
+                android:id="@+id/rowBalance_ivMore"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="@dimen/paddingSmall"
+                android:src="@drawable/ic_arrow_right"
+                app:tint="?attr/colorText0" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

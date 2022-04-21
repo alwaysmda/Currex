@@ -11,7 +11,7 @@
     <!-- Your product logo - 144dp color version of your app icon -->
     <item>
         <bitmap
-                android:gravity="center"
-                android:src="@drawable/ic_launcher_splash" />
+            android:gravity="center"
+            android:src="@drawable/logo_162" />
     </item>
 </layer-list>

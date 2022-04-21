@@ -2,22 +2,20 @@ package adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.currex.R
-import com.android.currex.databinding.RowPhotoBinding
-import domain.model.Photo
+import com.example.currex.R
+import com.example.currex.databinding.RowBalanceSmallBinding
+import domain.model.Rate
 import main.ApplicationClass
-import util.extension.translate
 
 class PhotoAdapter(
     private val app: ApplicationClass,
-    private val onItemClick: (Int, Photo) -> Unit = { _, _ -> },
+    private val onItemClick: (Int, Rate) -> Unit = { _, _ -> },
     private val onRetryClick: () -> Unit = {},
-) : ListAdapter<Photo, RecyclerView.ViewHolder>(DiffCallback()) {
+) : ListAdapter<Rate, RecyclerView.ViewHolder>(DiffCallback()) {
     private var loading = true
     private var retry = false
 
@@ -41,9 +39,9 @@ class PhotoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (loading && viewType == currentList.size) {
-            PhotoHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_photo, parent, false))
+            PhotoHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_balance_small, parent, false))
         } else {
-            PhotoHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_photo, parent, false))
+            PhotoHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.row_balance_small, parent, false))
         }
     }
 
@@ -64,25 +62,20 @@ class PhotoAdapter(
     }
 
 
-    inner class PhotoHolder(val binding: RowPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: Photo) {
+    inner class PhotoHolder(val binding: RowBalanceSmallBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(rate: Rate) {
             with(binding) {
-                app = this@PhotoAdapter.app
-                data = photo
+                data = rate
                 executePendingBindings()
-                rowPhotoCvContent.setOnClickListener { onItemClick(bindingAdapterPosition, photo) }
-                rowPhotoTvText.text = translate("1 : ${photo.id}")
-                ViewCompat.setTransitionName(rowPhotoIvPhoto, "transPhoto$bindingAdapterPosition")
-                ViewCompat.setTransitionName(rowPhotoTvText, "transId$bindingAdapterPosition")
             }
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<Photo>() {
-        override fun areItemsTheSame(oldItem: Photo, newItem: Photo) =
-            oldItem.id == newItem.id
+    private class DiffCallback : DiffUtil.ItemCallback<Rate>() {
+        override fun areItemsTheSame(oldItem: Rate, newItem: Rate) =
+            oldItem.name == newItem.name
 
-        override fun areContentsTheSame(oldItem: Photo, newItem: Photo) =
+        override fun areContentsTheSame(oldItem: Rate, newItem: Rate) =
             oldItem == newItem
     }
 }

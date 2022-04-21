@@ -1,10 +1,8 @@
 package data.remote
 
-import domain.model.NetworkError
-
 sealed class DataState<out T> {
     class Success<out D>(val data: D) : DataState<D>()
-    class Failure(val code: Int, val message: String, val error: NetworkError? = null) : DataState<Nothing>() {
+    class Failure(val code: Int, val message: String) : DataState<Nothing>() {
         companion object {
             const val CODE_INVALID = -1001
             const val CODE_NOT_FOUND = -1002
