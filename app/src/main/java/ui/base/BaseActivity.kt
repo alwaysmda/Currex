@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat
 import com.example.currex.R
 import com.example.currex.databinding.ActivityBaseBinding
 import dagger.hilt.android.AndroidEntryPoint
+import util.extension.getColorFromAttributes
+import util.extension.setStatusbarColor
 
 @AndroidEntryPoint
 class BaseActivity : AppCompatActivity() {
@@ -30,5 +32,6 @@ class BaseActivity : AppCompatActivity() {
         }
         _binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setStatusbarColor(this, getColorFromAttributes(this, R.attr.colorBackground0))
     }
 }

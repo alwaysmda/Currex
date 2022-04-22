@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_convertFragment_to_currencyListFragment"
             app:destination="@id/currencyListFragment" />
+        <action
+            android:id="@+id/action_convertFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/balanceListFragment"
@@ -40,4 +43,9 @@
             android:name="receiveRate"
             app:argType="domain.model.Rate" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="ui.setting.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

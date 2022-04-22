@@ -60,14 +60,31 @@ class ConvertViewModel @Inject constructor(
             getRatesJob = getRates()
         } else {
             viewModelScope.launch {
+                val balance = convertUseCases.getBalanceListUseCase()
+                balanceList.clear()
+                balanceList.addAll(balance)
+                if (app.appSetting.homeBalanceCount > balanceList.size) {
+                    app.appSetting.homeBalanceCount = balanceList.size
+                }
                 _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
+                if (isActive.not() && app.appSetting.refreshRegularly) {
+                    isActive = true
+                    getRatesJob = getRates()
+                }
+                onSellTextChanged(lastConvertResult.sellValue.toString())
             }
         }
-        updateFreeConversionText()
+//        updateFreeConversionText()
+    }
+
+    override fun onSettingClick() {
+        viewModelScope.launch {
+            _event.emit(ConvertEvents.NavSetting)
+        }
     }
 
     override fun onSellTextChanged(text: String) {
-        val result = convertUseCases.convertRateUseCase(text, sellRate.value, receiveRate.value, true, balanceList)
+        val result = convertUseCases.convertRateUseCase(text, sellRate, receiveRate, true, balanceList)
         updateConvertResult(result)
         viewModelScope.launch {
             _event.emit(ConvertEvents.UpdateReceiveText(result.receiveString))
@@ -75,7 +92,7 @@ class ConvertViewModel @Inject constructor(
     }
 
     override fun onReceiveTextChanged(text: String) {
-        val result = convertUseCases.convertRateUseCase(text, receiveRate.value, sellRate.value, false, balanceList)
+        val result = convertUseCases.convertRateUseCase(text, receiveRate, sellRate, false, balanceList)
         updateConvertResult(result)
         viewModelScope.launch {
             _event.emit(ConvertEvents.UpdateSellText(result.sellString))
@@ -108,9 +125,9 @@ class ConvertViewModel @Inject constructor(
     override fun onConvertClick() {
         viewModelScope.launch {
             val balance = convertUseCases.applyConvertUseCase(lastConvertResult, balanceList.cloned())
-            updateFreeConversionText()
             balanceList.clear()
             balanceList.addAll(balance)
+//            updateFreeConversionText()
             var message = app.getString(
                 R.string.convert_success_desc,
                 lastConvertResult.sellString,
@@ -118,7 +135,6 @@ class ConvertViewModel @Inject constructor(
                 lastConvertResult.receiveString,
                 receiveRate.name
             )
-
             if (lastConvertResult.sellFee > 0.0) {
                 message += "\n"
                 message += app.getString(R.string.convert_fee_desc, lastConvertResult.sellFeeString, sellRate.name)
@@ -132,6 +148,7 @@ class ConvertViewModel @Inject constructor(
                         .setPositiveText(app.getString(R.string.confirm))
                 )
             )
+            onSellTextChanged(lastConvertResult.sellValue.toString())
         }
     }
 
@@ -142,25 +159,29 @@ class ConvertViewModel @Inject constructor(
     }
 
     override fun onCurrencyChanged(rate: Rate) {
-        if (isSelectingSellCurrency) {
-            sellRate = rate
-            sellCurrencyText.value = sellRate.name
-        } else {
-            receiveRate = rate
-            receiveCurrencyText.value = receiveRate.name
-        }
         viewModelScope.launch {
+            if (isSelectingSellCurrency) {
+                sellRate = rate
+                sellCurrencyText.value = sellRate.name
+            } else {
+                receiveRate = rate
+                receiveCurrencyText.value = receiveRate.name
+            }
             val balance = convertUseCases.sortBalanceUseCase(balanceList.cloned(), sellRate, receiveRate)
             balanceList.clear()
             balanceList.addAll(balance)
             _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
+            if (isSelectingSellCurrency) {
+                onSellTextChanged(lastConvertResult.sellValue.toString())
+            } else {
+                onReceiveTextChanged(lastConvertResult.receiveValue.toString())
+            }
         }
-        onSellTextChanged(lastConvertResult.sellString)
     }
 
     private fun getRates(): Job {
         return viewModelScope.launch {
-//            while (isActive) {
+            while (isActive) {
                 convertUseCases.getExchangeRateUseCase().onEach {
                     if (isActive) {
                         when (it) {
@@ -170,8 +191,8 @@ class ConvertViewModel @Inject constructor(
                         }
                     }
                 }.launchIn(viewModelScope)
-            delay(app.appSetting.refreshInterval * 1000L)
-//            }
+                delay(app.appSetting.refreshInterval * 1000L)
+            }
         }
     }
 
@@ -215,8 +236,9 @@ class ConvertViewModel @Inject constructor(
             lastUpdateText.value = app.getString(R.string.last_update, time)
             rateList.clear()
             rateList.addAll(result.data)
-            if (balanceList.isEmpty()) {
-                viewModelScope.launch {
+            viewModelScope.launch {
+                if (balanceList.isEmpty()) {
+                    isActive = app.appSetting.refreshRegularly
                     var balance = convertUseCases.getBalanceListUseCase()
                     val savedSellCurrency = app.prefManager.getStringPref(Constant.PREF_SELL) ?: "EUR"
                     val savedReceiveCurrency = app.prefManager.getStringPref(Constant.PREF_RECEIVE) ?: "USD"
@@ -228,17 +250,25 @@ class ConvertViewModel @Inject constructor(
                     receiveCurrencyText.value = receiveRate.name
 
                     balance = convertUseCases.sortBalanceUseCase(balance, sellRate, receiveRate)
+                    balanceList.clear()
                     balanceList.addAll(balance)
+                    if (app.appSetting.homeBalanceCount > balanceList.size) {
+                        app.appSetting.homeBalanceCount = balanceList.size
+                    }
                     _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
                 }
+                onSellTextChanged(lastConvertResult.sellValue.toString())
             }
-            onSellTextChanged(lastConvertResult.sellString)
         }
     }
 
     private fun updateFreeConversionText() {
-//        val remainingFreeConvertCount = app.prefManager.getIntPref(Constant.PREF_FREE_CONVERT_COUNT)
-        freeConvertText.value = app.resources.getQuantityString(R.plurals.x_free_conversion_left, app.appSetting.freeConvertCount, app.appSetting.freeConvertCount)
+        val remaining = app.appSetting.freeConvertCount
+        if (remaining > 0) {
+            freeConvertText.value = app.resources.getQuantityString(R.plurals.x_free_conversion_left, remaining, remaining)
+        } else {
+            freeConvertText.value = ""
+        }
     }
 
     private fun updateConvertResult(result: ConvertResult) {
@@ -246,6 +276,7 @@ class ConvertViewModel @Inject constructor(
         convertButtonEnabled.value = result.isValid
         validationErrorText.value = result.error
         validationErrorTextVisibility.value = result.error.isNotBlank()
+        freeConvertText.value = result.feeDesc
     }
 }
 

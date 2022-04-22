@@ -31,6 +31,7 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
     private lateinit var adapter: BalanceSmallAdapter
     private var sellTextWatcher: TextWatcher? = null
     private var receiveTextWatcher: TextWatcher? = null
+    private var initialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,9 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
         init()
         observeEvents()
         setBackHandler()
-        viewModel.action.onStart()
+        binding.root.post {
+            viewModel.action.onStart()
+        }
         getBackStackData<Rate>(Constant.ARG_RATE) {
             viewModel.action.onCurrencyChanged(it)
         }
@@ -59,12 +62,21 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
             convertRvBalance.setHasFixedSize(true)
             convertRvBalance.layoutAnimation = viewModel.app.recyclerViewAnimation
             sellTextWatcher = convertEtSell.addTextChangedListener(afterTextChanged = {
-                viewModel.action.onSellTextChanged(it.toString())
+                if (initialized) {
+                    viewModel.action.onSellTextChanged(it.toString())
+                }
             })
             receiveTextWatcher = convertEtReceive.addTextChangedListener(afterTextChanged = {
-                viewModel.action.onReceiveTextChanged(it.toString())
+                if (initialized) {
+                    viewModel.action.onReceiveTextChanged(it.toString())
+                }
             })
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initialized = true
     }
 
     private fun setBackHandler() {
@@ -87,6 +99,11 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
         })
     }
 
+    override fun onDestroyView() {
+        initialized = false
+        super.onDestroyView()
+    }
+
     private fun observeEvents() {
         viewModel.event.onEach {
             when (it) {
@@ -94,27 +111,38 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
                 is ConvertEvents.Snack             -> snack(binding.root, it.message)
                 is ConvertEvents.UpdateBalanceList -> {
                     binding.convertRvBalance.recycledViewPool.setMaxRecycledViews(0, 0)
-                    adapter.submitList(it.list) { binding.convertRvBalance.smoothScrollToPosition(0) }
+                    adapter.submitList(it.list) {
+                        if (it.list.size > 20) {
+                            binding.convertRvBalance.scrollToPosition(0)
+                        } else {
+                            binding.convertRvBalance.smoothScrollToPosition(0)
+                        }
+                    }
                 }
                 is ConvertEvents.NavBalanceList    -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToBalanceListFragment(it.list.toTypedArray()))
                 is ConvertEvents.NavCurrencyList   -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToCurrencyListFragment(it.list.toTypedArray(), it.sellRate, it.receiveRate))
+                is ConvertEvents.NavSetting        -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToSettingFragment())
                 is ConvertEvents.ShowDialog        -> it.dialog.show(childFragmentManager)
                 is ConvertEvents.UpdateSellText    -> {
                     binding.convertEtSell.apply {
-                        removeTextChangedListener(sellTextWatcher)
-                        setText(it.text)
-                        sellTextWatcher = addTextChangedListener(afterTextChanged = { text ->
-                            viewModel.action.onSellTextChanged(text.toString())
-                        })
+                        if (text.toString() != it.text) {
+                            removeTextChangedListener(sellTextWatcher)
+                            setText(it.text)
+                            sellTextWatcher = addTextChangedListener(afterTextChanged = { text ->
+                                viewModel.action.onSellTextChanged(text.toString())
+                            })
+                        }
                     }
                 }
                 is ConvertEvents.UpdateReceiveText -> {
                     binding.convertEtReceive.apply {
-                        removeTextChangedListener(receiveTextWatcher)
-                        setText(it.text)
-                        receiveTextWatcher = addTextChangedListener(afterTextChanged = { text ->
-                            viewModel.action.onReceiveTextChanged(text.toString())
-                        })
+                        if (text.toString() != it.text) {
+                            removeTextChangedListener(receiveTextWatcher)
+                            setText(it.text)
+                            receiveTextWatcher = addTextChangedListener(afterTextChanged = { text ->
+                                viewModel.action.onReceiveTextChanged(text.toString())
+                            })
+                        }
                     }
                 }
             }

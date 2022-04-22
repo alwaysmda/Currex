@@ -11,6 +11,7 @@ sealed class ConvertEvents : BaseEvent() {
     class UpdateBalanceList(val list: ArrayList<Rate>) : ConvertEvents()
     class NavCurrencyList(val list: ArrayList<Rate>, val sellRate: Rate, val receiveRate: Rate) : ConvertEvents()
     class NavBalanceList(val list: ArrayList<Rate>) : ConvertEvents()
+    object NavSetting : ConvertEvents()
     class UpdateSellText(val text: String) : ConvertEvents()
     class UpdateReceiveText(val text: String) : ConvertEvents()
     class ShowDialog(val dialog: CustomDialog) : ConvertEvents()

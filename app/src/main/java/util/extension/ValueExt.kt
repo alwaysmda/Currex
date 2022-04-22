@@ -70,14 +70,15 @@ fun separateNumberBy3(number: Long): String {
 }
 
 fun Double.separateNumberBy3(): String {
-    val remaining = this.toString().substring(this.toString().indexOf('.') + 1)
+    val with2Decimals = (this * 100.0).toInt() / 100.0
+    val remaining = with2Decimals.toString().substring(with2Decimals.toString().indexOf('.') + 1)
     val formatter = DecimalFormat("#,###,###")
-    val result = formatter.format(this)
+    val result = formatter.format(with2Decimals.toInt())
     return if (remaining == "0" || remaining.length > 1 && remaining.substring(0, 2) == "00") {
         result
     } else {
-        val end = if (remaining.length > 2) 2 else remaining.length
-        "$result.${remaining.substring(0, end)}"
+//        val end = if (remaining.length > 2) 2 else remaining.length
+        "$result.${remaining}"
     }
 }
 

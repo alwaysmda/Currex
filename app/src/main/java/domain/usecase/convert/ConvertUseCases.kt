@@ -6,4 +6,5 @@ data class ConvertUseCases(
     val sortBalanceUseCase: SortBalanceUseCase,
     val convertRateUseCase: ConvertRateUseCase,
     val applyConvertUseCase: ApplyConvertUseCase,
+    val resetBalanceListUseCase: ResetBalanceListUseCase,
 )

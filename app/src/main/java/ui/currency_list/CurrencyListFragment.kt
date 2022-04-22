@@ -34,7 +34,9 @@ class CurrencyListFragment : BaseFragment<FragmentCurrencyListBinding, CurrencyL
         observeEvents()
         arguments?.let {
             CurrencyListFragmentArgs.fromBundle(it).apply {
-                viewModel.action.onStart(ArrayList(list.toMutableList()), sellRate, receiveRate)
+                binding.root.post {
+                    viewModel.action.onStart(ArrayList(list.toMutableList()), sellRate, receiveRate)
+                }
             }
         }
         return binding.root

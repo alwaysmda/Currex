@@ -13,7 +13,7 @@ class ApplyConvertUseCase @Inject constructor(private val app: ApplicationClass,
         balanceList[1].value = balanceList[1].value - convertResult.receiveFee + convertResult.receiveValue
         repository.updateBalanceList(balanceList)
         if (app.appSetting.freeConvertCount > 0) {
-            app.appSetting.freeConvertCount--// = appSetting.freeConvertCount-1
+            app.appSetting.freeConvertCount--
         }
         app.prefManager.setPref(Constant.PREF_CONVERT_COUNT, app.prefManager.getIntPref(Constant.PREF_CONVERT_COUNT) + 1)
         return balanceList

@@ -51,6 +51,7 @@ object AppModule {
             SortBalanceUseCase(app.prefManager, repository),
             ConvertRateUseCase(app),
             ApplyConvertUseCase(app, repository),
+            ResetBalanceListUseCase(app.appSetting, repository),
         )
     }
 

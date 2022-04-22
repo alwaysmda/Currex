@@ -5,6 +5,7 @@ import ui.base.BaseAction
 
 interface ConvertAction : BaseAction {
     fun onStart()
+    fun onSettingClick()
     fun onErrorDismissClick()
     fun onSellCurrencyClick()
     fun onReceiveCurrencyClick()

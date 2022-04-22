@@ -31,4 +31,25 @@
     <string name="currency_list">Currency List</string>
     <string name="this_currency_is_already_selected">This currency is already selected</string>
     <string name="last_update">Last update @%1$s</string>
+    <string name="developer_settings">Developer settings</string>
+    <string name="network_request_failure_retry_interval_sec">Network request failure retry interval (sec):</string>
+    <string name="free_conversion_count">Free conversion count:</string>
+    <string name="convert_every_x_times_for_free">Convert every X times for free:</string>
+    <string name="below_x_eur_conversions_are_free">Below X Eur conversions are free:</string>
+    <string name="refresh_currency_rates_regularly">Refresh currency rates regularly:</string>
+    <string name="currency_refresh_interval_sec">Currency refresh interval (sec):</string>
+    <string name="homepage_balance_preview_items_count">Homepage balance preview items count:</string>
+    <string name="initial_balance_value">Initial balance value:</string>
+    <string name="initial_balance_name">Initial balance name:</string>
+    <string name="commission_fee">Commission fee:</string>
+    <string name="reduce_commission_fee_from_source">Reduce commission fee from source:</string>
+    <string name="reduce_commission_fee_from_target">Reduce commission fee from target:</string>
+    <string name="reset_balance">Reset balance</string>
+    <string name="contact_developer">Contact developer</string>
+    <string name="reset_options">Reset options</string>
+    <string name="conversion_is_free">Conversion is free!</string>
+    <string name="commission_fee_is_zero">Commission fee is zero!</string>
+    <string name="commission_fee_for_below_x_eur_is_free">Commission fee is free for below %1$d EUR</string>
+    <string name="every_x_conversion_is_free">Every %1$d conversion is free. This is your %2$d th conversion</string>
+    <string name="commission_fee_values">Commission fee from source is %1$s and commission fee from target is %2$s.</string>
 </resources>

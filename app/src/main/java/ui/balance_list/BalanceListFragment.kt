@@ -32,7 +32,9 @@ class BalanceListFragment : BaseFragment<FragmentBalanceListBinding, BalanceList
         observeEvents()
         arguments?.let {
             val list = BalanceListFragmentArgs.fromBundle(it).list.toMutableList()
-            viewModel.action.onStart(ArrayList(list))
+            binding.root.post {
+                viewModel.action.onStart(ArrayList(list))
+            }
         }
         return binding.root
     }

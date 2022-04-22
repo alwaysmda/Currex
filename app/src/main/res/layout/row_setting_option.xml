@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="domain.model.Option" />
+    </data>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/rowOption_btnOption"
+        style="@style/GeneralButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/paddingSmall"
+        android:layout_marginBottom="@dimen/paddingLargeX"
+        android:paddingVertical="@dimen/paddingLargeX"
+        android:text="@{data.name}"
+        android:textSize="@dimen/textLarge"
+        app:backgroundTint="?attr/colorBackground0"
+        app:cornerRadius="@dimen/radiusLarge"
+        app:elevation="10dp"
+        app:strokeColor="?attr/colorAccent"
+        app:strokeWidth="@{data.selected ? 2 : 0}"
+        tools:text="5" />
+
+</layout>

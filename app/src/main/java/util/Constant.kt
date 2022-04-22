@@ -8,8 +8,11 @@ object Constant {
     const val PREF_INITIALIZED = "PREF_INITIALIZED"
     const val PREF_CONVERT_COUNT = "PREF_CONVERT_COUNT"
     const val PREF_RETRY_INTERVAL = "PREF_RETRY_INTERVAL"
+    const val PREF_FREE_CONVERT = "PREF_FREE_CONVERT"
     const val PREF_FREE_CONVERT_COUNT = "PREF_FREE_CONVERT_COUNT"
     const val PREF_FREE_CONVERT_EVERY_X = "PREF_FREE_CONVERT_EVERY_X"
+    const val PREF_FREE_CONVERT_BELOW_X_EUR = "PREF_FREE_CONVERT_BELOW_X_EUR"
+    const val PREF_REFRESH_REGULARLY = "PREF_REFRESH_REGULARLY"
     const val PREF_REFRESH_INTERVAL = "PREF_REFRESH_INTERVAL"
     const val PREF_HOME_BALANCE_COUNT = "PREF_HOME_BALANCE_COUNT"
     const val PREF_INITIAL_BALANCE_VALUE = "PREF_INITIAL_BALANCE_VALUE"
@@ -24,8 +27,11 @@ object Constant {
     const val CON_AES_KEY = "dde717bc4fd78bbbd98ccc7d8516ba79"
     const val CON_AES_IV = "a3da2dab4e2b44d1"
     const val CON_RETRY_INTERVAL = 5
+    const val CON_FREE_CONVERT = false
     const val CON_FREE_CONVERT_COUNT = 5
     const val CON_FREE_CONVERT_EVERY_X = 0
+    const val CON_FREE_CONVERT_BELOW_X_EUR = 0.0
+    const val CON_REFRESH_REGULARLY = true
     const val CON_REFRESH_INTERVAL = 5
     const val CON_HOME_BALANCE_COUNT = 10
     const val CON_INITIAL_BALANCE_VALUE = 1000.0
@@ -33,6 +39,7 @@ object Constant {
     const val CON_CONVERSION_FEE = 0.007
     const val CON_REDUCE_FEE_FROM_SOURCE = true
     const val CON_REDUCE_FEE_FROM_TARGET = true
+    const val CON_DEVELOPER_EMAIL = "alwaysmda@gmail.com"
 
     //========================== A R G S ==========================//
     const val ARG_RATE = "ARG_RATE"

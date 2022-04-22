@@ -27,6 +27,7 @@ class ApplicationClass : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        appSetting.init()
     }
 }
 
@@ -48,17 +49,17 @@ class ApplicationClass : Application() {
 + error animation
 + recyclerview animation
 + edittext length limit
-- add developer setting
-    - reset balance
-    - initial balance (name and value)
-    - refresh interval
-    - retry interval
-    - conversion fee
-    - free fee in first x conversion
-    - free fee every x conversion
-    - reduce fee from source
-    - reduce fee from target
++ add developer setting
+    + reset balance
+    + initial balance (name and value)
+    + refresh interval
+    + retry interval
+    + conversion fee
+    + free fee in first x conversion
+    + free fee every x conversion
+    + reduce fee from source
+    + reduce fee from target
     - show fee before convert
-    - homepage balance item count
-    - contact developer
+    + homepage balance item count
+    + contact developer
 * */
