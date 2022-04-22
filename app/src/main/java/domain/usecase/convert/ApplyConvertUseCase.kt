@@ -1,20 +1,20 @@
 package domain.usecase.convert
 
-import com.google.gson.Gson
 import domain.model.ConvertResult
 import domain.model.Rate
-import main.ApplicationClass
+import domain.repository.Repository
 import util.Constant
+import util.PrefManager
 import javax.inject.Inject
 
-class ApplyConvertUseCase @Inject constructor(private val app: ApplicationClass) {
-    operator fun invoke(convertResult: ConvertResult, balanceList: ArrayList<Rate>): ArrayList<Rate> {
+class ApplyConvertUseCase @Inject constructor(private val prefManager: PrefManager, private val repository: Repository) {
+    suspend operator fun invoke(convertResult: ConvertResult, balanceList: ArrayList<Rate>): ArrayList<Rate> {
         balanceList[0].value = balanceList[0].value - convertResult.sellFee - convertResult.sellValue
         balanceList[1].value = balanceList[1].value - convertResult.receiveFee + convertResult.receiveValue
-        app.prefManager.setPref(Constant.PREF_BALANCE, Gson().toJson(balanceList))
-        val remainingFreeConversion = app.prefManager.getIntPref(Constant.PREF_FREE_CONVERT_COUNT)
+        repository.updateBalanceList(balanceList)
+        val remainingFreeConversion = prefManager.getIntPref(Constant.PREF_FREE_CONVERT_COUNT)
         if (remainingFreeConversion > 0) {
-            app.prefManager.setPref(Constant.PREF_FREE_CONVERT_COUNT, remainingFreeConversion - 1)
+            prefManager.setPref(Constant.PREF_FREE_CONVERT_COUNT, remainingFreeConversion - 1)
         }
         return balanceList
     }

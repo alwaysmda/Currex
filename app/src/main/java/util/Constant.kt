@@ -3,7 +3,6 @@ package util
 object Constant {
     //========================== P R E F E R E N C E S ==========================//
     const val PREF_LOG = "PREF_LOG"
-    const val PREF_BALANCE = "PREF_BALANCE"
     const val PREF_SELL = "PREF_SELL"
     const val PREF_RECEIVE = "PREF_RECEIVE"
     const val PREF_FREE_CONVERT_COUNT = "PREF_FREE_CONVERT_COUNT"

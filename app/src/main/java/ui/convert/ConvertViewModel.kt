@@ -106,22 +106,23 @@ class ConvertViewModel @Inject constructor(
     }
 
     override fun onConvertClick() {
-        val balance = convertUseCases.applyConvertUseCase(lastConvertResult, balanceList.cloned())
-        balanceList.clear()
-        balanceList.addAll(balance)
-        var message = app.getString(
-            R.string.convert_success_desc,
-            lastConvertResult.sellString,
-            sellRate.name,
-            lastConvertResult.receiveString,
-            receiveRate.name
-        )
-
-        if (lastConvertResult.sellFee > 0.0) {
-            message += "\n"
-            message += app.getString(R.string.convert_fee_desc, lastConvertResult.sellFeeString, sellRate.name)
-        }
         viewModelScope.launch {
+            val balance = convertUseCases.applyConvertUseCase(lastConvertResult, balanceList.cloned())
+            updateFreeConversionText()
+            balanceList.clear()
+            balanceList.addAll(balance)
+            var message = app.getString(
+                R.string.convert_success_desc,
+                lastConvertResult.sellString,
+                sellRate.name,
+                lastConvertResult.receiveString,
+                receiveRate.name
+            )
+
+            if (lastConvertResult.sellFee > 0.0) {
+                message += "\n"
+                message += app.getString(R.string.convert_fee_desc, lastConvertResult.sellFeeString, sellRate.name)
+            }
             _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
             _event.emit(
                 ConvertEvents.ShowDialog(
@@ -132,7 +133,6 @@ class ConvertViewModel @Inject constructor(
                 )
             )
         }
-        updateFreeConversionText()
     }
 
     override fun onBalanceMoreClick() {
@@ -149,10 +149,10 @@ class ConvertViewModel @Inject constructor(
             receiveRate = rate
             receiveCurrencyText.value = receiveRate.name
         }
-        val balance = convertUseCases.sortBalanceUseCase(balanceList.cloned(), sellRate, receiveRate)
-        balanceList.clear()
-        balanceList.addAll(balance)
         viewModelScope.launch {
+            val balance = convertUseCases.sortBalanceUseCase(balanceList.cloned(), sellRate, receiveRate)
+            balanceList.clear()
+            balanceList.addAll(balance)
             _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
         }
         onSellTextChanged(lastConvertResult.sellString)
@@ -160,7 +160,7 @@ class ConvertViewModel @Inject constructor(
 
     private fun getRates(): Job {
         return viewModelScope.launch {
-            while (isActive) {
+//            while (isActive) {
                 convertUseCases.getExchangeRateUseCase().onEach {
                     if (isActive) {
                         when (it) {
@@ -171,7 +171,7 @@ class ConvertViewModel @Inject constructor(
                     }
                 }.launchIn(viewModelScope)
                 delay(Constant.CON_REFRESH_DELAY_MILLIS)
-            }
+//            }
         }
     }
 
@@ -216,19 +216,19 @@ class ConvertViewModel @Inject constructor(
             rateList.clear()
             rateList.addAll(result.data)
             if (balanceList.isEmpty()) {
-                var balance = convertUseCases.addMissingBalanceUseCase(result.data)
-                val savedSellCurrency = app.prefManager.getStringPref(Constant.PREF_SELL) ?: "EUR"
-                val savedReceiveCurrency = app.prefManager.getStringPref(Constant.PREF_RECEIVE) ?: "USD"
-
-                sellRate = rateList.firstOrNull { it.name == savedSellCurrency } ?: rateList[0]
-                receiveRate = rateList.firstOrNull { it.name == savedReceiveCurrency } ?: rateList[1]
-
-                sellCurrencyText.value = sellRate.name
-                receiveCurrencyText.value = receiveRate.name
-
-                balance = convertUseCases.sortBalanceUseCase(balance, sellRate, receiveRate)
-                balanceList.addAll(balance)
                 viewModelScope.launch {
+                    var balance = convertUseCases.getBalanceListUseCase()
+                    val savedSellCurrency = app.prefManager.getStringPref(Constant.PREF_SELL) ?: "EUR"
+                    val savedReceiveCurrency = app.prefManager.getStringPref(Constant.PREF_RECEIVE) ?: "USD"
+
+                    sellRate = rateList.firstOrNull { it.name == savedSellCurrency } ?: rateList[0]
+                    receiveRate = rateList.firstOrNull { it.name == savedReceiveCurrency } ?: rateList[1]
+
+                    sellCurrencyText.value = sellRate.name
+                    receiveCurrencyText.value = receiveRate.name
+
+                    balance = convertUseCases.sortBalanceUseCase(balance, sellRate, receiveRate)
+                    balanceList.addAll(balance)
                     _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
                 }
             }

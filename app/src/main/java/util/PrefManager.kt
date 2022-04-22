@@ -9,6 +9,13 @@ import util.Constant.CON_AES_KEY
 class PrefManager(appClass: ApplicationClass) {
     private val pref: SharedPreferences = appClass.getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE)
 
+    init {
+        if (getBooleanPref(Constant.PREF_INITIALIZED).not()) {
+            setPref(Constant.PREF_FREE_CONVERT_COUNT, Constant.CON_FREE_CONVERT_COUNT)
+            setPref(Constant.PREF_INITIALIZED, true)
+        }
+    }
+
     fun getStringPref(key: String): String? {
         return try {
             val item = pref.getString(encPref(key), null)

@@ -92,7 +92,10 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
             when (it) {
                 is ConvertEvents.Rebind            -> binding.vm = viewModel
                 is ConvertEvents.Snack             -> snack(binding.root, it.message)
-                is ConvertEvents.UpdateBalanceList -> adapter.submitList(it.list) { binding.convertRvBalance.smoothScrollToPosition(0) }
+                is ConvertEvents.UpdateBalanceList -> {
+                    binding.convertRvBalance.recycledViewPool.setMaxRecycledViews(0, 0)
+                    adapter.submitList(it.list) { binding.convertRvBalance.smoothScrollToPosition(0) }
+                }
                 is ConvertEvents.NavBalanceList    -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToBalanceListFragment(it.list.toTypedArray()))
                 is ConvertEvents.NavCurrencyList   -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToCurrencyListFragment(it.list.toTypedArray(), it.sellRate, it.receiveRate))
                 is ConvertEvents.ShowDialog        -> it.dialog.show(childFragmentManager)

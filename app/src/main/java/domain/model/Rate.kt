@@ -1,11 +1,15 @@
 package domain.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import util.extension.separateNumberBy3
 
+@Entity(tableName = "tbl_balance")
 @Parcelize
 data class Rate(
+    @PrimaryKey(autoGenerate = false)
     val name: String,
     var value: Double,
     var selected: Boolean = false,

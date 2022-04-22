@@ -11,6 +11,14 @@ class GetExchangeRateUseCase @Inject constructor(private val repository: Reposit
     operator fun invoke(): Flow<DataState<ArrayList<Rate>>> = flow {
         emit(DataState.Loading)
         val result = repository.getExchangeRates()
+        if (result is DataState.Success) {
+            val balanceList = repository.getBalanceList()
+            if (balanceList.isEmpty()) {
+                balanceList.add(Rate("EUR", 1000.0))
+            }
+            balanceList.addAll(result.data.filter { it.name !in balanceList.map { item -> item.name }.toSet() }.map { Rate(it.name, 0.0) })
+            repository.updateBalanceList(balanceList)
+        }
         emit(result)
     }
 }

@@ -3,7 +3,6 @@ package main
 import android.app.Application
 import android.view.animation.LayoutAnimationController
 import dagger.hilt.android.HiltAndroidApp
-import util.Constant
 import util.PrefManager
 import javax.inject.Inject
 
@@ -24,14 +23,6 @@ class ApplicationClass : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        initDefaultPref()
-    }
-
-    private fun initDefaultPref() {
-        if (prefManager.getBooleanPref(Constant.PREF_INITIALIZED).not()) {
-            prefManager.setPref(Constant.PREF_FREE_CONVERT_COUNT, Constant.CON_FREE_CONVERT_COUNT)
-            prefManager.setPref(Constant.PREF_INITIALIZED, true)
-        }
     }
 }
 
@@ -44,8 +35,8 @@ class ApplicationClass : Application() {
 + coordinator and search in balance list and currency list
 + rate update is not needed in balance list and currency list
 + check if rate list has at least 2 items
-- use room
-- show last update
++ use room
++ show last update
 + show remaining free conversion count
 + show expiration error on request fail
 + pass error code from api and convert to error string later

@@ -1,13 +1,13 @@
 package domain.usecase.convert
 
-import com.google.gson.Gson
 import domain.model.Rate
-import main.ApplicationClass
+import domain.repository.Repository
 import util.Constant
+import util.PrefManager
 import javax.inject.Inject
 
-class SortBalanceUseCase @Inject constructor(private val app: ApplicationClass) {
-    operator fun invoke(list: ArrayList<Rate>, sell: Rate, receive: Rate): ArrayList<Rate> {
+class SortBalanceUseCase @Inject constructor(private val prefManager: PrefManager, private val repository: Repository) {
+    suspend operator fun invoke(list: ArrayList<Rate>, sell: Rate, receive: Rate): ArrayList<Rate> {
         val result = arrayListOf<Rate>()
         list.first { it.name == sell.name }.also { item ->
             result.add(item.copy(selected = true))
@@ -19,9 +19,9 @@ class SortBalanceUseCase @Inject constructor(private val app: ApplicationClass) 
         }
 
         result.addAll(list.onEach { it.selected = false })
-        app.prefManager.setPref(Constant.PREF_BALANCE, Gson().toJson(result))
-        app.prefManager.setPref(Constant.PREF_SELL, sell.name)
-        app.prefManager.setPref(Constant.PREF_RECEIVE, receive.name)
+        repository.updateBalanceList(result)
+        prefManager.setPref(Constant.PREF_SELL, sell.name)
+        prefManager.setPref(Constant.PREF_RECEIVE, receive.name)
         return result
     }
 }

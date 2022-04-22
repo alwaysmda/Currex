@@ -3,12 +3,18 @@ package di
 import android.content.Context
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import androidx.room.Room
 import com.example.currex.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import data.db.BalanceDatabase
+import data.db.RateDao
+import data.remote.Api
+import data.remote.dto.RatesMapper
+import data.repository.RepositoryImpl
 import domain.repository.Repository
 import domain.usecase.convert.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,14 +43,35 @@ object AppModule {
     @ExperimentalCoroutinesApi
     @Singleton
     @Provides
-    fun provideConvertUseCases(app: ApplicationClass, repository: Repository): ConvertUseCases {
+    fun provideConvertUseCases(app: ApplicationClass, prefManager: PrefManager, repository: Repository): ConvertUseCases {
         return ConvertUseCases(
             GetExchangeRateUseCase(repository),
-            AddMissingBalanceUseCase(app),
-            SortBalanceUseCase(app),
+            GetBalanceListUseCase(repository),
+            SortBalanceUseCase(prefManager, repository),
             ConvertRateUseCase(app),
-            ApplyConvertUseCase(app),
+            ApplyConvertUseCase(prefManager, repository),
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideRepository(app: ApplicationClass, api: Api, rateDao: RateDao, ratesMapper: RatesMapper): Repository =
+        RepositoryImpl(app, api, rateDao, ratesMapper)
+
+
+    @Singleton
+    @Provides
+    fun provideBalanceDatabase(app: ApplicationClass) =
+        Room.databaseBuilder(
+            app,
+            BalanceDatabase::class.java,
+            "db_balance"
+        ).build()
+
+    @Provides
+    @Singleton
+    fun provideRateDao(db: BalanceDatabase): RateDao =
+        db.getRateDao()
+
 
 }
