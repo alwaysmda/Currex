@@ -32,7 +32,7 @@ class ConvertViewModel @Inject constructor(
     private var isActive = true
     private var balanceList = arrayListOf<Rate>()
     private var rateList = arrayListOf<Rate>()
-    private var retryTimerCounter = Constant.CON_RETRY_DELAY
+    private var retryTimerCounter = app.appSetting.retryInterval
     private var sellRate = Rate("", 0.0)
     private var receiveRate = Rate("", 0.0)
     private var lastConvertResult = ConvertResult(0.0, 0.0, 0.0, 0.0, false, "", "")
@@ -60,7 +60,7 @@ class ConvertViewModel @Inject constructor(
             getRatesJob = getRates()
         } else {
             viewModelScope.launch {
-                _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
+                _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
             }
         }
         updateFreeConversionText()
@@ -123,7 +123,7 @@ class ConvertViewModel @Inject constructor(
                 message += "\n"
                 message += app.getString(R.string.convert_fee_desc, lastConvertResult.sellFeeString, sellRate.name)
             }
-            _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
+            _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
             _event.emit(
                 ConvertEvents.ShowDialog(
                     CustomDialog(app)
@@ -153,7 +153,7 @@ class ConvertViewModel @Inject constructor(
             val balance = convertUseCases.sortBalanceUseCase(balanceList.cloned(), sellRate, receiveRate)
             balanceList.clear()
             balanceList.addAll(balance)
-            _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
+            _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
         }
         onSellTextChanged(lastConvertResult.sellString)
     }
@@ -170,7 +170,7 @@ class ConvertViewModel @Inject constructor(
                         }
                     }
                 }.launchIn(viewModelScope)
-                delay(Constant.CON_REFRESH_DELAY_MILLIS)
+            delay(app.appSetting.refreshInterval * 1000L)
 //            }
         }
     }
@@ -192,7 +192,7 @@ class ConvertViewModel @Inject constructor(
             override fun run() {
                 if (retryTimerCounter == 0) {
                     cancel()
-                    retryTimerCounter = Constant.CON_RETRY_DELAY
+                    retryTimerCounter = app.appSetting.retryInterval
                     isActive = true
                     getRatesJob = getRates()
                 } else {
@@ -229,7 +229,7 @@ class ConvertViewModel @Inject constructor(
 
                     balance = convertUseCases.sortBalanceUseCase(balance, sellRate, receiveRate)
                     balanceList.addAll(balance)
-                    _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, Constant.CON_HOME_BALANCE_COUNT).cloned()))
+                    _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
                 }
             }
             onSellTextChanged(lastConvertResult.sellString)
@@ -237,8 +237,8 @@ class ConvertViewModel @Inject constructor(
     }
 
     private fun updateFreeConversionText() {
-        val remainingFreeConvertCount = app.prefManager.getIntPref(Constant.PREF_FREE_CONVERT_COUNT)
-        freeConvertText.value = app.resources.getQuantityString(R.plurals.x_free_conversion_left, remainingFreeConvertCount, remainingFreeConvertCount)
+//        val remainingFreeConvertCount = app.prefManager.getIntPref(Constant.PREF_FREE_CONVERT_COUNT)
+        freeConvertText.value = app.resources.getQuantityString(R.plurals.x_free_conversion_left, app.appSetting.freeConvertCount, app.appSetting.freeConvertCount)
     }
 
     private fun updateConvertResult(result: ConvertResult) {

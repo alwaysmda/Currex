@@ -19,6 +19,7 @@ import domain.repository.Repository
 import domain.usecase.convert.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import main.ApplicationClass
+import util.AppSetting
 import util.PrefManager
 import javax.inject.Singleton
 
@@ -43,13 +44,13 @@ object AppModule {
     @ExperimentalCoroutinesApi
     @Singleton
     @Provides
-    fun provideConvertUseCases(app: ApplicationClass, prefManager: PrefManager, repository: Repository): ConvertUseCases {
+    fun provideConvertUseCases(app: ApplicationClass, repository: Repository): ConvertUseCases {
         return ConvertUseCases(
-            GetExchangeRateUseCase(repository),
+            GetExchangeRateUseCase(app.appSetting, repository),
             GetBalanceListUseCase(repository),
-            SortBalanceUseCase(prefManager, repository),
+            SortBalanceUseCase(app.prefManager, repository),
             ConvertRateUseCase(app),
-            ApplyConvertUseCase(prefManager, repository),
+            ApplyConvertUseCase(app, repository),
         )
     }
 
@@ -72,6 +73,11 @@ object AppModule {
     @Singleton
     fun provideRateDao(db: BalanceDatabase): RateDao =
         db.getRateDao()
+
+    @Provides
+    @Singleton
+    fun provideAppSetting(prefManager: PrefManager): AppSetting =
+        AppSetting(prefManager)
 
 
 }

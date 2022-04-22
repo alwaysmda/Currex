@@ -3,6 +3,7 @@ package main
 import android.app.Application
 import android.view.animation.LayoutAnimationController
 import dagger.hilt.android.HiltAndroidApp
+import util.AppSetting
 import util.PrefManager
 import javax.inject.Inject
 
@@ -13,6 +14,9 @@ class ApplicationClass : Application() {
 
     @Inject
     lateinit var recyclerViewAnimation: LayoutAnimationController
+
+    @Inject
+    lateinit var appSetting: AppSetting
 
     companion object {
         @Volatile

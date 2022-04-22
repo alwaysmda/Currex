@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class ConvertRateUseCase @Inject constructor(private val app: ApplicationClass) {
     operator fun invoke(input: String, inputRate: Double, targetRate: Double, isSelling: Boolean, balanceList: ArrayList<Rate>): ConvertResult {
-        val remainingFreeConvertCount = app.prefManager.getIntPref(Constant.PREF_FREE_CONVERT_COUNT)
+        val remainingFreeConvertCount = app.appSetting.freeConvertCount
         var feeText = ""
-        if (remainingFreeConvertCount > 0) {
+        if (app.appSetting.freeConvertCount > 0) {
             feeText = app.resources.getQuantityString(R.plurals.x_free_conversion_left, remainingFreeConvertCount, remainingFreeConvertCount)
         }
         return if (input.isBlank()) {
@@ -26,9 +26,21 @@ class ConvertRateUseCase @Inject constructor(private val app: ApplicationClass) 
             var sellFee = 0.0
             var receiveFee = 0.0
 
-            if (remainingFreeConvertCount <= 0) {
-                sellFee = sellValue * 0.007
-                receiveFee = sellFee * targetRate / inputRate
+            var isFree = false
+
+            when {
+                app.appSetting.conversionFee == 0.0   -> isFree = true
+                remainingFreeConvertCount <= 0        -> isFree = true
+                app.appSetting.freeConvertEveryX != 0 -> {
+                    val convertCount = app.prefManager.getIntPref(Constant.PREF_CONVERT_COUNT)
+                    isFree = convertCount % app.appSetting.freeConvertEveryX == 0
+                }
+            }
+
+
+            if (isFree.not()) {
+                sellFee = if (app.appSetting.reduceFeeFromSource) sellValue * app.appSetting.conversionFee else 0.0
+                receiveFee = if (app.appSetting.reduceFeeFromTarget) sellFee * targetRate / inputRate else 0.0
 //                feeText = app.getString(R.string.convert_fee_desc, lastConvertResult.sellFeeString, sellRate.name)
             }
 
