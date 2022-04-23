@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="AppTheme.Dark.Blue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
         <item name="colorPrimary">@color/darkBlueColorPrimary</item>
         <item name="colorPrimaryDark">@color/darkBlueColorPrimaryDark</item>
         <item name="colorAccent">@color/darkBlueColorAccent</item>
-
         <item name="colorText0">@color/darkBlueText0</item>
         <item name="colorText1">@color/darkBlueText1</item>
         <item name="colorText2">@color/darkBlueText2</item>
@@ -16,24 +13,16 @@
         <item name="colorButtonBackground">@color/darkBlueButtonBackground</item>
         <item name="colorButtonText">@color/darkBlueButtonText</item>
         <item name="colorRipple">@color/darkBlueRipple</item>
-
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">?android:colorBackground</item>
-
-
-        <!--        <item name="android:textAppearanceLargePopupMenu">@style/myPopupMenuTextAppearanceLarge</item>-->
-
     </style>
 
-
     <style name="AppTheme.Light.Pink" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
         <item name="colorPrimary">@color/lightPinkColorPrimary</item>
         <item name="colorPrimaryDark">@color/lightPinkColorPrimaryDark</item>
         <item name="colorAccent">@color/lightPinkColorAccent</item>
-
         <item name="colorText0">@color/lightPinkText0</item>
         <item name="colorText1">@color/lightPinkText1</item>
         <item name="colorText2">@color/lightPinkText2</item>
@@ -43,24 +32,10 @@
         <item name="colorButtonBackground">@color/lightPinkButtonBackground</item>
         <item name="colorButtonText">@color/lightPinkButtonText</item>
         <item name="colorRipple">@color/lightPinkRipple</item>
-
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowBackground">?android:colorBackground</item>
-    </style>
-
-
-    <style name="ToolbarButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:inset">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetRight">0dp</item>
-        <item name="android:insetLeft">0dp</item>
-        <item name="cornerRadius">@dimen/dimenToolbarButtonRadius</item>
-        <item name="iconGravity">textEnd</item>
-        <item name="iconTint">@color/md_white_1000</item>
-        <item name="rippleColor">?attr/colorRipple</item>
     </style>
 
     <style name="AppTheme.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -79,19 +54,6 @@
         <item name="backgroundTint">?attr/colorButtonBackground</item>
         <item name="cornerRadius">@dimen/radiusSmall</item>
         <item name="android:textAllCaps">false</item>
-        <item name="rippleColor">?attr/colorRipple</item>
-    </style>
-
-    <style name="GeneralButton.ToolbarButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:inset">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetRight">0dp</item>
-        <item name="android:insetLeft">0dp</item>
-        <item name="cornerRadius">@dimen/dimenToolbarButtonRadius</item>
-        <item name="iconPadding">0dp</item>
-        <item name="iconGravity">textEnd</item>
-        <item name="iconTint">@color/md_white_1000</item>
         <item name="rippleColor">?attr/colorRipple</item>
     </style>
 
@@ -136,36 +98,4 @@
         <item name="android:fontFamily">@font/font_en_medium</item>
     </style>
 
-    <style name="GeneralText.Shadow" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">?attr/colorText0</item>
-        <item name="android:textSize">@dimen/textMedium</item>
-        <item name="android:fontFamily">@font/font_en_medium</item>
-        <item name="android:shadowColor">?attr/colorText0</item>
-        <item name="android:shadowDx">1</item>
-        <item name="android:shadowDy">1</item>
-        <item name="android:shadowRadius">1</item>
-    </style>
-
-    <style name="TabLayoutTextSize" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="NumberPrefix" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">@dimen/textMedium</item>
-        <item name="android:fontFamily">@font/font_fa_medium</item>
-    </style>
-
-    <style name="CircularImageView">
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">?attr/colorPrimary</item>
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
-    <style name="CircularImageView.Avatar">
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">?attr/colorPrimary</item>
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
 </resources>

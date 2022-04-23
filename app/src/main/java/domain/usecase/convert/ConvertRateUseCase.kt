@@ -66,7 +66,7 @@ class ConvertRateUseCase @Inject constructor(private val app: ApplicationClass) 
             }
             app.appSetting.freeConvertEveryX != 0                -> {
                 val convertCount = app.prefManager.getIntPref(Constant.PREF_CONVERT_COUNT)
-                isFree = convertCount % app.appSetting.freeConvertEveryX == 0
+                isFree = (convertCount + 1) % app.appSetting.freeConvertEveryX == 0
                 if (isFree) {
                     status = StringResource.Translatable(R.string.every_x_conversion_is_free, app.appSetting.freeConvertEveryX, convertCount + 1)
                 }

@@ -31,14 +31,4 @@
     <item name="textLarge" type="dimen">14sp</item>
     <item name="textLargeX" type="dimen">16sp</item>
     <item name="textLargeXX" type="dimen">20sp</item>
-
-    <!--Placeholder Sizes-->
-    <item name="placeholderHeightSmall" type="dimen">6dp</item>
-    <item name="placeholderHeightMedium" type="dimen">10dp</item>
-    <item name="placeholderHeightLarge" type="dimen">14dp</item>
-    <item name="placeholderHeightLargeX" type="dimen">18dp</item>
-    <item name="placeholderWidthSmallX" type="dimen">20dp</item>
-    <item name="placeholderWidthSmall" type="dimen">50dp</item>
-    <item name="placeholderWidthMedium" type="dimen">100dp</item>
-    <item name="placeholderWidthLarge" type="dimen">150dp</item>
 </resources>
