@@ -179,7 +179,7 @@ fun snack(view: View?, message: String, long: Boolean = false) {
     view?.let {
         val snack = Snackbar.make(it, message, if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
         val tv = snack.view.findViewById<TextView?>(R.id.snackbar_text)
-        tv?.typeface = ResourcesCompat.getFont(it.context, R.font.font_en_light)
+        tv?.typeface = ResourcesCompat.getFont(it.context, R.font.font_en_medium)
         snack.show()
     }
 }
@@ -188,7 +188,7 @@ fun snack(view: View?, message: Int, long: Boolean = false) {
     view?.let {
         val snack = Snackbar.make(it, message, if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT).setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
         val tv = snack.view.findViewById<TextView?>(R.id.snackbar_text)
-        tv?.typeface = ResourcesCompat.getFont(it.context, R.font.font_en_light)
+        tv?.typeface = ResourcesCompat.getFont(it.context, R.font.font_en_medium)
         snack.show()
     }
 }

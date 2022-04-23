@@ -67,14 +67,13 @@ class ConvertViewModel @Inject constructor(
                     app.appSetting.homeBalanceCount = balanceList.size
                 }
                 _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
-                if (isActive.not() && app.appSetting.refreshRegularly) {
+                if (isActive.not() && app.appSetting.refreshRegularly && errorVisibility.value.not()) {
                     isActive = true
                     getRatesJob = getRates()
                 }
                 onSellTextChanged(lastConvertResult.sellValue.toString())
             }
         }
-//        updateFreeConversionText()
     }
 
     override fun onSettingClick() {
@@ -127,7 +126,6 @@ class ConvertViewModel @Inject constructor(
             val balance = convertUseCases.applyConvertUseCase(lastConvertResult, balanceList.cloned())
             balanceList.clear()
             balanceList.addAll(balance)
-//            updateFreeConversionText()
             var message = app.getString(
                 R.string.convert_success_desc,
                 lastConvertResult.sellString,
@@ -236,9 +234,9 @@ class ConvertViewModel @Inject constructor(
             lastUpdateText.value = app.getString(R.string.last_update, time)
             rateList.clear()
             rateList.addAll(result.data)
+            isActive = app.appSetting.refreshRegularly
             viewModelScope.launch {
                 if (balanceList.isEmpty()) {
-                    isActive = app.appSetting.refreshRegularly
                     var balance = convertUseCases.getBalanceListUseCase()
                     val savedSellCurrency = app.prefManager.getStringPref(Constant.PREF_SELL) ?: "EUR"
                     val savedReceiveCurrency = app.prefManager.getStringPref(Constant.PREF_RECEIVE) ?: "USD"
@@ -262,15 +260,6 @@ class ConvertViewModel @Inject constructor(
         }
     }
 
-    private fun updateFreeConversionText() {
-        val remaining = app.appSetting.freeConvertCount
-        if (remaining > 0) {
-            freeConvertText.value = app.resources.getQuantityString(R.plurals.x_free_conversion_left, remaining, remaining)
-        } else {
-            freeConvertText.value = ""
-        }
-    }
-
     private fun updateConvertResult(result: ConvertResult) {
         lastConvertResult = result
         convertButtonEnabled.value = result.isValid
@@ -279,7 +268,3 @@ class ConvertViewModel @Inject constructor(
         freeConvertText.value = result.feeDesc
     }
 }
-
-
-
-

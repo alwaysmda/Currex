@@ -86,10 +86,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/paddingLargeXXX"
                     android:layout_marginTop="@dimen/paddingLargeX"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:cardBackgroundColor="?attr/colorBackground0"
                     app:cardCornerRadius="@dimen/radiusLarge"
                     app:cardElevation="10dp"
+                    app:strokeColor="@color/main_red"
+                    app:strokeWidth="2dp"
                     app:isVisible="@{vm.errorVisibility}"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -123,6 +125,7 @@
 
                         <com.google.android.material.button.MaterialButton
                             style="@style/GeneralButton"
+                            app:backgroundTint="?attr/colorBackground1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="@{() -> vm.action.onErrorDismissClick()}"

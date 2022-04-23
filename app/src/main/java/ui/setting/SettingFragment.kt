@@ -112,7 +112,14 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingEvents, Sett
                 is SettingEvents.UpdateConversionFeeList        -> conversionFeeAdapter.submitList(it.list)
                 is SettingEvents.UpdateReduceFeeFromSourceList  -> reduceFeeFromSourceAdapter.submitList(it.list)
                 is SettingEvents.UpdateReduceFeeFromTargetList  -> reduceFeeFromTargetAdapter.submitList(it.list)
-                is SettingEvents.SendMail                       -> startActivity(Intent.createChooser(Intent(Intent.ACTION_SENDTO).setData(Uri.parse(it.email)), getString(R.string.contact_developer)))
+                is SettingEvents.SendMail                       -> {
+                    val intent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:")
+                        putExtra(Intent.EXTRA_EMAIL, arrayOf(it.email))
+                        putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+                    }
+                    startActivity(intent)
+                }
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
