@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import main.ApplicationClass
 import ui.base.BaseViewModel
+import util.StringResource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,8 +27,8 @@ class CurrencyListViewModel @Inject constructor(
     var searchText = MutableStateFlow("")
     var clearTextVisibility = MutableStateFlow(false)
     var failVisibility = MutableStateFlow(false)
-    var errorTitleText = MutableStateFlow(app.getString(R.string.no_result))
-    var errorDescText = MutableStateFlow(app.getString(R.string.no_currency_found))
+    var errorTitleText: MutableStateFlow<StringResource> = MutableStateFlow(StringResource.Translatable(R.string.no_result))
+    var errorDescText: MutableStateFlow<StringResource> = MutableStateFlow(StringResource.Translatable(R.string.no_currency_found))
 
     init {
         searchText.onEach { text ->
@@ -84,7 +85,7 @@ class CurrencyListViewModel @Inject constructor(
     override fun onCurrencyClick(index: Int, rate: Rate) {
         viewModelScope.launch {
             if (rate.selected) {
-                _event.emit(CurrencyListEvents.Snack(app.getString(R.string.this_currency_is_already_selected)))
+                _event.emit(CurrencyListEvents.Snack(StringResource.Translatable(R.string.this_currency_is_already_selected)))
             } else {
                 _event.emit(CurrencyListEvents.ReturnCurrency(rate))
             }

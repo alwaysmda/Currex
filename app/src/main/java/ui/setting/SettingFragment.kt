@@ -97,8 +97,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingEvents, Sett
     private fun observeEvents() {
         viewModel.event.onEach {
             when (it) {
-                is SettingEvents.Rebind                         -> binding.vm = viewModel
-                is SettingEvents.Snack                          -> snack(binding.root, it.message)
+                is SettingEvents.Snack                          -> snack(binding.root, it.message.asString(requireContext()))
                 is SettingEvents.NavBack                        -> findNavController().popBackStack()
                 is SettingEvents.UpdateRetryIntervalList        -> retryIntervalAdapter.submitList(it.list)
                 is SettingEvents.UpdateFreeConvertCountList     -> freeConvertCountAdapter.submitList(it.list)

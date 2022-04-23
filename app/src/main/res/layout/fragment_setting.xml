@@ -24,7 +24,7 @@
             android:gravity="center"
             android:text="@string/developer_settings"
             android:textColor="@color/md_white_1000"
-            android:textSize="@dimen/textLargeXX"
+            android:textSize="@dimen/textLargeX"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -357,35 +357,35 @@
                     android:alpha="0.5"
                     android:background="?attr/colorBackground0" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/GeneralButton"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
                     android:layout_marginVertical="@dimen/paddingLargeX"
-                    android:onClick="@{() -> vm.action.onResetBalanceClick()}"
-                    android:paddingVertical="@dimen/paddingLargeX"
-                    android:text="@string/reset_balance"
-                    app:cornerRadius="@dimen/radiusLarge" />
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/paddingLarge">
 
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/GeneralButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/paddingLarge"
+                        android:layout_weight="1"
+                        android:onClick="@{() -> vm.action.onResetBalanceClick()}"
+                        android:paddingVertical="@dimen/paddingLargeX"
+                        android:text="@string/reset_balance"
+                        app:cornerRadius="@dimen/radiusLarge" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="?attr/colorBackground0" />
-
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/GeneralButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/paddingLargeXXX"
-                    android:layout_marginVertical="@dimen/paddingLargeX"
-                    android:onClick="@{() -> vm.action.onResetOptionsClick()}"
-                    android:paddingVertical="@dimen/paddingLargeX"
-                    android:text="@string/reset_options"
-                    app:cornerRadius="@dimen/radiusLarge" />
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/GeneralButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/paddingLarge"
+                        android:layout_weight="1"
+                        android:onClick="@{() -> vm.action.onResetOptionsClick()}"
+                        android:paddingVertical="@dimen/paddingLargeX"
+                        android:text="@string/reset_options"
+                        app:cornerRadius="@dimen/radiusLarge" />
+                </LinearLayout>
 
 
                 <View

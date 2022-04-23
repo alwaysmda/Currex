@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ui.base.BaseFragment
-import util.extension.snack
 
 @AndroidEntryPoint
 class BalanceListFragment : BaseFragment<FragmentBalanceListBinding, BalanceListEvents, BalanceListAction, BalanceListViewModel>(R.layout.fragment_balance_list) {
@@ -52,8 +51,6 @@ class BalanceListFragment : BaseFragment<FragmentBalanceListBinding, BalanceList
     private fun observeEvents() {
         viewModel.event.onEach {
             when (it) {
-                is BalanceListEvents.Rebind            -> binding.vm = viewModel
-                is BalanceListEvents.Snack             -> snack(binding.root, it.message)
                 is BalanceListEvents.UpdateBalanceList -> adapter.submitList(it.list)
                 is BalanceListEvents.NavBack           -> findNavController().popBackStack()
             }

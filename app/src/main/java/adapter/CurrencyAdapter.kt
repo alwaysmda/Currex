@@ -2,6 +2,7 @@ package adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -29,6 +30,7 @@ class CurrencyAdapter(
                 data = rate
                 executePendingBindings()
                 rowCurrencyIvSelected.setImageResource(if (rate.isSell) R.drawable.ic_sell else R.drawable.ic_receive)
+                rowCurrencyIvSelected.setColorFilter(ContextCompat.getColor(root.context, if (rate.isSell) R.color.main_red else R.color.main_green))
                 rowCurrencyClParent.setOnClickListener {
                     onItemClick(bindingAdapterPosition, rate)
                 }

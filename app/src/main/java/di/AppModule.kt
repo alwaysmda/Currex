@@ -57,8 +57,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(app: ApplicationClass, api: Api, rateDao: RateDao, ratesMapper: RatesMapper): Repository =
-        RepositoryImpl(app, api, rateDao, ratesMapper)
+    fun provideRepository(api: Api, rateDao: RateDao, ratesMapper: RatesMapper): Repository =
+        RepositoryImpl(api, rateDao, ratesMapper)
 
 
     @Singleton

@@ -5,6 +5,7 @@ import domain.model.ConvertResult
 import domain.model.Rate
 import main.ApplicationClass
 import util.Constant
+import util.StringResource
 import util.extension.extractNumbers
 import util.extension.separateNumberBy3
 import javax.inject.Inject
@@ -26,46 +27,48 @@ class ConvertRateUseCase @Inject constructor(private val app: ApplicationClass) 
             sellFee = if (app.appSetting.reduceFeeFromSource) sellValue * app.appSetting.conversionFee else 0.0
             receiveFee = if (app.appSetting.reduceFeeFromTarget) sellFee * targetRate.value / inputRate.value else 0.0
             feeText = if (sellFee == 0.0 && receiveFee == 0.0) {
-                app.getString(R.string.conversion_is_free)
+                StringResource.Translatable(R.string.conversion_is_free)
             } else {
-                app.getString(R.string.commission_fee_values, if (sellFee == 0.0) "free" else sellFee.separateNumberBy3(), if (receiveFee == 0.0) "free" else receiveFee.separateNumberBy3())
+                val sellRate = if (isSelling) inputRate else targetRate
+                val receiveRate = if (isSelling) targetRate else sellRate
+                StringResource.Translatable(R.string.commission_fee_values, if (sellFee == 0.0) "free" else "${sellFee.separateNumberBy3()} ${sellRate.name}", if (receiveFee == 0.0) "free" else "${receiveFee.separateNumberBy3()} ${receiveRate.name}")
             }
         }
 
         val sellBalance = balanceList[0]
         return when {
-            sellValue == 0.0                        -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, false, "", feeText)
-            sellValue > sellBalance.value           -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, false, app.getString(R.string.insufficient_balance), feeText)
-            sellValue + sellFee > sellBalance.value -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, false, app.getString(R.string.insufficient_balance_for_fee), feeText)
-            else                                    -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, true, "", feeText)
+            sellValue == 0.0                        -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, false, StringResource.Raw(""), feeText)
+            sellValue > sellBalance.value           -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, false, StringResource.Translatable(R.string.insufficient_balance), feeText)
+            sellValue + sellFee > sellBalance.value -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, false, StringResource.Translatable(R.string.insufficient_balance_for_fee), feeText)
+            else                                    -> ConvertResult(sellValue, receiveValue, sellFee, receiveFee, true, StringResource.Raw(""), feeText)
         }
     }
 
-    private fun getCommissionStatus(sellValueInEur: Double): Pair<Boolean, String> {
+    private fun getCommissionStatus(sellValueInEur: Double): Pair<Boolean, StringResource> {
         var isFree = false
-        var status = ""
+        var status: StringResource = StringResource.Translatable(0)
         when {
             app.appSetting.freeConvert                           -> {
                 isFree = true
-                status = app.getString(R.string.conversion_is_free)
+                status = StringResource.Translatable(R.string.conversion_is_free)
             }
             app.appSetting.conversionFee == 0.0                  -> {
                 isFree = true
-                status = app.getString(R.string.commission_fee_is_zero)
+                status = StringResource.Translatable(R.string.commission_fee_is_zero)
             }
             app.appSetting.freeConvertCount > 0                  -> {
                 isFree = true
-                status = app.resources.getQuantityString(R.plurals.x_free_conversion_left, app.appSetting.freeConvertCount, app.appSetting.freeConvertCount)
+                status = StringResource.TranslatablePlural(R.plurals.x_free_conversion_left, app.appSetting.freeConvertCount, app.appSetting.freeConvertCount)
             }
             sellValueInEur < app.appSetting.freeConvertBelowXEur -> {
                 isFree = true
-                status = app.getString(R.string.commission_fee_for_below_x_eur_is_free, app.appSetting.freeConvertBelowXEur.toInt())
+                status = StringResource.Translatable(R.string.commission_fee_for_below_x_eur_is_free, app.appSetting.freeConvertBelowXEur.toInt())
             }
             app.appSetting.freeConvertEveryX != 0                -> {
                 val convertCount = app.prefManager.getIntPref(Constant.PREF_CONVERT_COUNT)
                 isFree = convertCount % app.appSetting.freeConvertEveryX == 0
                 if (isFree) {
-                    status = app.getString(R.string.every_x_conversion_is_free, app.appSetting.freeConvertEveryX, convertCount + 1)
+                    status = StringResource.Translatable(R.string.every_x_conversion_is_free, app.appSetting.freeConvertEveryX, convertCount + 1)
                 }
 
             }

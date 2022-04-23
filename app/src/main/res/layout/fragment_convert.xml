@@ -42,7 +42,7 @@
             android:textColor="@color/md_white_1000"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textSize="@dimen/textLargeXX"
+            android:textSize="@dimen/textLargeX"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -106,7 +106,7 @@
                             style="@style/GeneralText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{vm.errorTitleText}"
+                            app:text="@{vm.errorTitleText}"
                             android:textSize="@dimen/textLargeX"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="Something went wrong" />
@@ -118,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/paddingSmall"
                             android:alpha="0.7"
-                            android:text="@{vm.errorDescText}"
+                            app:text="@{vm.errorDescText}"
                             android:textSize="@dimen/textLarge"
                             app:layout_constraintTop_toBottomOf="@id/convert_tvErrorTitle"
                             tools:text="Retrying in 5 seconds" />
@@ -228,7 +228,7 @@
                             android:layout_marginVertical="@dimen/paddingLarge"
                             android:layout_marginEnd="@dimen/paddingLargeX"
                             android:onClick="@{() -> vm.action.onSellCurrencyClick()}"
-                            android:text="@{vm.sellCurrencyText}"
+                            app:text="@{vm.sellCurrencyText}"
                             app:backgroundTint="?attr/colorPrimary"
                             app:icon="@drawable/ic_arrow_down"
                             app:iconGravity="end"
@@ -293,7 +293,7 @@
                             android:layout_marginVertical="@dimen/paddingLarge"
                             android:layout_marginEnd="@dimen/paddingLargeX"
                             android:onClick="@{() -> vm.action.onReceiveCurrencyClick()}"
-                            android:text="@{vm.receiveCurrencyText}"
+                            app:text="@{vm.receiveCurrencyText}"
                             app:backgroundTint="?attr/colorPrimary"
                             app:icon="@drawable/ic_arrow_down"
                             app:iconGravity="end"
@@ -313,7 +313,7 @@
                     android:layout_marginTop="@dimen/paddingMedium"
                     android:layout_marginHorizontal="@dimen/paddingLargeXXX"
                     android:alpha="0.5"
-                    android:text="@{vm.lastUpdateText}"
+                    app:text="@{vm.lastUpdateText}"
                     app:layout_constraintTop_toBottomOf="@id/convert_cvReceive"
                     tools:text="Last Update @12:12:12" />
 
@@ -325,7 +325,7 @@
                     android:layout_marginHorizontal="@dimen/paddingLargeXXX"
                     android:layout_marginTop="@dimen/paddingLargeXXX"
                     android:gravity="center"
-                    android:text="@{vm.validationErrorText}"
+                    app:text="@{vm.validationErrorText}"
                     android:textColor="@color/main_red"
                     app:isVisible="@{vm.validationErrorTextVisibility}"
                     app:layout_constraintTop_toBottomOf="@id/convert_tvLastUpdate"
@@ -362,7 +362,7 @@
                     android:layout_marginHorizontal="@dimen/paddingLargeXXX"
                     android:alpha="0.7"
                     android:gravity="center"
-                    android:text="@{vm.freeConvertText}"
+                    app:text="@{vm.freeConvertText}"
                     app:layout_constraintTop_toBottomOf="@id/convert_btnConvert"
                     tools:text="5 free conversions left" />
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,11 +7,11 @@
 
         <variable
             name="title"
-            type="String" />
+            type="util.StringResource" />
 
         <variable
             name="desc"
-            type="String" />
+            type="util.StringResource" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{title}"
+            app:text="@{title}"
             android:textSize="@dimen/textLargeX"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +49,7 @@
             android:layout_marginTop="@dimen/paddingLarge"
             android:alpha="0.7"
             android:gravity="center"
-            android:text="@{desc}"
+            app:text="@{desc}"
             android:textSize="@dimen/textLarge"
             app:layout_constraintTop_toBottomOf="@id/ext_tvErrorTitle"
             tools:text="Retrying in 5 seconds" />

@@ -1,6 +1,7 @@
 package ui.dialog
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,10 +17,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.example.currex.R
 import com.example.currex.databinding.DialogCustomBinding
-import main.ApplicationClass
 import util.extension.getScreenWidth
 
-class CustomDialog(private val app: ApplicationClass, private val customView: Int = R.layout.dialog_custom) : DialogFragment() {
+class CustomDialog(private val ctx: Context, private val customView: Int = R.layout.dialog_custom) : DialogFragment() {
     //Element
     private var title: String = ""
     private var content: String = ""
@@ -56,7 +56,7 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
     }
 
     fun setTitle(text: Int): CustomDialog {
-        title = app.resources.getString(text)
+        title = ctx.getString(text)
         //        bind()
         init()
         return this
@@ -84,7 +84,7 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
     }
 
     fun setContent(text: Int): CustomDialog {
-        content = app.resources.getString(text)
+        content = ctx.getString(text)
         //        bind()
         init()
         return this
@@ -113,7 +113,7 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
 
     fun setPositiveText(text: Int): CustomDialog {
         showButtons = true
-        positiveText = app.resources.getString(text)
+        positiveText = ctx.getString(text)
         //        bind()
         init()
         return this
@@ -152,7 +152,7 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
 
     fun setNegativeText(text: Int): CustomDialog {
         showButtons = true
-        negativeText = app.resources.getString(text)
+        negativeText = ctx.getString(text)
         //        bind()
         init()
         return this
@@ -183,7 +183,7 @@ class CustomDialog(private val app: ApplicationClass, private val customView: In
 
     fun setNeutralText(text: Int): CustomDialog {
         showButtons = true
-        neutralText = app.resources.getString(text)
+        neutralText = ctx.getString(text)
         //        bind()
         init()
         return this

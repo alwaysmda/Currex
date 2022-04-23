@@ -20,11 +20,11 @@
             style="@style/GeneralText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimenToolbar"
-            android:textColor="@color/md_white_1000"
             android:background="?attr/colorBackground0"
             android:gravity="center"
             android:text="@string/currency_list"
-            android:textSize="@dimen/textLargeXX"
+            android:textColor="@color/md_white_1000"
+            android:textSize="@dimen/textLargeX"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -34,8 +34,8 @@
             android:layout_marginStart="@dimen/paddingMedium"
             android:onClick="@{() -> vm.action.onBackClick()}"
             app:cornerRadius="18dp"
-            app:iconTint="@color/md_white_1000"
             app:icon="@drawable/ic_arrow_left"
+            app:iconTint="@color/md_white_1000"
             app:layout_constraintBottom_toBottomOf="@id/currencyList_tvTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/currencyList_tvTitle" />
@@ -64,58 +64,11 @@
                 android:minHeight="0dp"
                 app:elevation="0dp">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/paddingLargeX"
-                    android:layout_marginVertical="@dimen/paddingLarge"
-                    app:cardBackgroundColor="?attr/colorBackground0"
-                    app:cardCornerRadius="25dp"
-                    app:cardElevation="0dp"
-                    app:layout_scrollFlags="enterAlways|scroll">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="50dp"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/paddingMedium">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:alpha="0.7"
-                            android:contentDescription="@string/search"
-                            android:padding="4dp"
-                            android:src="@drawable/ic_search"
-                            app:tint="?attr/colorText0" />
-
-                        <EditText
-                            style="@style/GeneralText"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/paddingMedium"
-                            android:layout_weight="1"
-                            android:hint="@string/search"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:maxLength="10"
-                            android:text="@={vm.searchText}"
-                            android:textColorHint="@color/md_grey_500" />
-
-                        <com.google.android.material.button.MaterialButton
-                            style="@style/GeneralButton.TextButton"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:alpha="0.5"
-                            android:onClick="@{() -> vm.action.onClearTextClick()}"
-                            app:icon="@drawable/ic_close"
-                            app:iconSize="14dp"
-                            app:iconTint="?attr/colorText0"
-                            app:isVisible="@{vm.clearTextVisibility}" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                <include
+                    layout="@layout/ext_search"
+                    app:clearVisibility="@{vm.clearTextVisibility}"
+                    app:onClearClick="@{vm.action::onClearTextClick}"
+                    app:text="@={vm.searchText}" />
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView

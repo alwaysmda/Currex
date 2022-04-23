@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import main.ApplicationClass
 import ui.base.BaseViewModel
-import ui.dialog.CustomDialog
 import util.Constant
+import util.StringResource
 import util.extension.convertTimestampToDate
 import java.util.*
 import javax.inject.Inject
@@ -35,23 +35,23 @@ class ConvertViewModel @Inject constructor(
     private var retryTimerCounter = app.appSetting.retryInterval
     private var sellRate = Rate("", 0.0)
     private var receiveRate = Rate("", 0.0)
-    private var lastConvertResult = ConvertResult(0.0, 0.0, 0.0, 0.0, false, "", "")
+    private var lastConvertResult = ConvertResult(0.0, 0.0, 0.0, 0.0, false, StringResource.Raw(""), StringResource.Raw(""))
     private var isSelectingSellCurrency = false
 
     //Binding
     var loadingVisibility = MutableStateFlow(true)
     var failVisibility = MutableStateFlow(false)
     var errorVisibility = MutableStateFlow(false)
-    var errorTitleText = MutableStateFlow("")
-    var errorDescText = MutableStateFlow("")
+    var errorTitleText = MutableStateFlow(StringResource.Translatable(0))
+    var errorDescText = MutableStateFlow(StringResource.TranslatablePlural(0, 0))
     var contentVisibility = MutableStateFlow(false)
-    var sellCurrencyText = MutableStateFlow("")
-    var receiveCurrencyText = MutableStateFlow("")
-    var lastUpdateText = MutableStateFlow("")
-    var validationErrorText = MutableStateFlow("")
+    var sellCurrencyText: MutableStateFlow<StringResource> = MutableStateFlow(StringResource.Raw(""))
+    var receiveCurrencyText: MutableStateFlow<StringResource> = MutableStateFlow(StringResource.Raw(""))
+    var lastUpdateText: MutableStateFlow<StringResource> = MutableStateFlow(StringResource.Raw(""))
+    var validationErrorText: MutableStateFlow<StringResource> = MutableStateFlow(StringResource.Raw(""))
     var validationErrorTextVisibility = MutableStateFlow(false)
     var convertButtonEnabled = MutableStateFlow(false)
-    var freeConvertText = MutableStateFlow("")
+    var freeConvertText: MutableStateFlow<StringResource> = MutableStateFlow(StringResource.Raw(""))
 
 
     override fun onStart() {
@@ -126,26 +126,19 @@ class ConvertViewModel @Inject constructor(
             val balance = convertUseCases.applyConvertUseCase(lastConvertResult, balanceList.cloned())
             balanceList.clear()
             balanceList.addAll(balance)
-            var message = app.getString(
+            val content = StringResource.Translatable(
                 R.string.convert_success_desc,
                 lastConvertResult.sellString,
                 sellRate.name,
                 lastConvertResult.receiveString,
                 receiveRate.name
             )
+            var fee: StringResource = StringResource.Raw("")
             if (lastConvertResult.sellFee > 0.0) {
-                message += "\n"
-                message += app.getString(R.string.convert_fee_desc, lastConvertResult.sellFeeString, sellRate.name)
+                fee = StringResource.Translatable(R.string.convert_fee_desc, lastConvertResult.sellFeeString, sellRate.name)
             }
             _event.emit(ConvertEvents.UpdateBalanceList(balanceList.subList(0, app.appSetting.homeBalanceCount).cloned()))
-            _event.emit(
-                ConvertEvents.ShowDialog(
-                    CustomDialog(app)
-                        .setTitle(app.getString(R.string.convert_success_title))
-                        .setContent(message)
-                        .setPositiveText(app.getString(R.string.confirm))
-                )
-            )
+            _event.emit(ConvertEvents.ShowConvertCompleteDialog(content, fee))
             onSellTextChanged(lastConvertResult.sellValue.toString())
         }
     }
@@ -160,10 +153,10 @@ class ConvertViewModel @Inject constructor(
         viewModelScope.launch {
             if (isSelectingSellCurrency) {
                 sellRate = rate
-                sellCurrencyText.value = sellRate.name
+                sellCurrencyText.value = StringResource.Raw(sellRate.name)
             } else {
                 receiveRate = rate
-                receiveCurrencyText.value = receiveRate.name
+                receiveCurrencyText.value = StringResource.Raw(receiveRate.name)
             }
             val balance = convertUseCases.sortBalanceUseCase(balanceList.cloned(), sellRate, receiveRate)
             balanceList.clear()
@@ -215,7 +208,7 @@ class ConvertViewModel @Inject constructor(
                     isActive = true
                     getRatesJob = getRates()
                 } else {
-                    errorDescText.value = app.resources.getQuantityString(R.plurals.retrying_in_x_sec, retryTimerCounter, retryTimerCounter)
+                    errorDescText.value = StringResource.TranslatablePlural(R.plurals.retrying_in_x_sec, retryTimerCounter, retryTimerCounter)
                     retryTimerCounter--
                 }
             }
@@ -224,14 +217,14 @@ class ConvertViewModel @Inject constructor(
 
     private fun onGetRatesSuccess(result: DataState.Success<ArrayList<Rate>>) {
         if (result.data.size < 2) {
-            onGetRatesFailure(DataState.Failure(DataState.Failure.CODE_INVALID, app.getString(R.string.something_went_wrong)))
+            onGetRatesFailure(DataState.Failure(DataState.Failure.CODE_INVALID, StringResource.Translatable(R.string.something_went_wrong)))
         } else {
             loadingVisibility.value = false
             failVisibility.value = false
             errorVisibility.value = false
             contentVisibility.value = true
             val time = convertTimestampToDate(System.currentTimeMillis(), "HH:mm:ss")
-            lastUpdateText.value = app.getString(R.string.last_update, time)
+            lastUpdateText.value = StringResource.Translatable(R.string.last_update, time)
             rateList.clear()
             rateList.addAll(result.data)
             isActive = app.appSetting.refreshRegularly
@@ -244,8 +237,8 @@ class ConvertViewModel @Inject constructor(
                     sellRate = rateList.firstOrNull { it.name == savedSellCurrency } ?: rateList[0]
                     receiveRate = rateList.firstOrNull { it.name == savedReceiveCurrency } ?: rateList[1]
 
-                    sellCurrencyText.value = sellRate.name
-                    receiveCurrencyText.value = receiveRate.name
+                    sellCurrencyText.value = StringResource.Raw(sellRate.name)
+                    receiveCurrencyText.value = StringResource.Raw(receiveRate.name)
 
                     balance = convertUseCases.sortBalanceUseCase(balance, sellRate, receiveRate)
                     balanceList.clear()

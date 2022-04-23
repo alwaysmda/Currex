@@ -7,15 +7,13 @@ import data.remote.DataState
 import data.remote.dto.RatesMapper
 import domain.model.Rate
 import domain.repository.Repository
-import main.ApplicationClass
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    app: ApplicationClass,
     private val api: Api,
     private val rateDao: RateDao,
     private val ratesMapper: RatesMapper,
-) : ApiResponseHandler(app), Repository {
+) : ApiResponseHandler(), Repository {
     override suspend fun getExchangeRates(): DataState<ArrayList<Rate>> {
         return when (val response = call { api.getExchangeRates() }) {
             is DataState.Loading -> response

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import main.ApplicationClass
 import ui.base.BaseViewModel
+import util.StringResource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,8 +25,8 @@ class BalanceListViewModel @Inject constructor(
     var searchText = MutableStateFlow("")
     var clearTextVisibility = MutableStateFlow(false)
     var failVisibility = MutableStateFlow(false)
-    var errorTitleText = MutableStateFlow(app.getString(R.string.no_result))
-    var errorDescText = MutableStateFlow(app.getString(R.string.no_currency_found))
+    var errorTitleText = MutableStateFlow(StringResource.Translatable(R.string.no_result))
+    var errorDescText = MutableStateFlow(StringResource.Translatable(R.string.no_currency_found))
 
     init {
         searchText.onEach { text ->

@@ -28,7 +28,7 @@
             android:id="@+id/rowCurrency_ivBullet"
             android:layout_width="6dp"
             android:layout_height="6dp"
-            android:layout_marginStart="@dimen/paddingMedium"
+            android:layout_marginStart="@dimen/paddingLargeXXX"
             android:contentDescription="@{data.name}"
             android:src="@drawable/ic_circle"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,12 +55,11 @@
             android:id="@+id/rowCurrency_ivSelected"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="@dimen/paddingLargeX"
+            android:layout_marginEnd="@dimen/paddingLargeXXX"
             android:src="@drawable/ic_sell"
             app:isVisible="@{data.selected}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="?attr/colorText0" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -55,8 +55,7 @@ class CurrencyListFragment : BaseFragment<FragmentCurrencyListBinding, CurrencyL
     private fun observeEvents() {
         viewModel.event.onEach {
             when (it) {
-                is CurrencyListEvents.Rebind             -> binding.vm = viewModel
-                is CurrencyListEvents.Snack              -> snack(binding.root, it.message)
+                is CurrencyListEvents.Snack              -> snack(binding.root, it.message.asString(requireContext()))
                 is CurrencyListEvents.UpdateCurrencyList -> adapter.submitList(it.list)
                 is CurrencyListEvents.NavBack            -> findNavController().popBackStack()
                 is CurrencyListEvents.ReturnCurrency     -> setBackStackData(Constant.ARG_RATE, it.rate)

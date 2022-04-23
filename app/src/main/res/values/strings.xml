@@ -51,5 +51,6 @@
     <string name="commission_fee_is_zero">Commission fee is zero!</string>
     <string name="commission_fee_for_below_x_eur_is_free">Commission fee is free for below %1$d EUR</string>
     <string name="every_x_conversion_is_free">Every %1$d conversion is free. This is your %2$d th conversion</string>
-    <string name="commission_fee_values">Commission fee from source is %1$s and commission fee from target is %2$s.</string>
+    <string name="commission_fee_values">Commission fee from source is %1$s and\ncommission fee from target is %2$s.</string>
+    <string name="done">Done</string>
 </resources>

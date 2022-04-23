@@ -18,6 +18,7 @@ import domain.model.Rate
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ui.base.BaseFragment
+import ui.dialog.CustomDialog
 import util.Constant
 import util.extension.fadeInOut
 import util.extension.getBackStackData
@@ -86,7 +87,7 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
                     baseActivity.finishAffinity()
                 } else {
                     isBackPressed = true
-                    snack(binding.root, baseActivity.getString(R.string.tapAgainToExit))
+                    snack(binding.root, getString(R.string.tapAgainToExit))
                     timer.cancel()
                     timer = Timer()
                     timer.schedule(object : TimerTask() {
@@ -107,9 +108,7 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
     private fun observeEvents() {
         viewModel.event.onEach {
             when (it) {
-                is ConvertEvents.Rebind            -> binding.vm = viewModel
-                is ConvertEvents.Snack             -> snack(binding.root, it.message)
-                is ConvertEvents.UpdateBalanceList -> {
+                is ConvertEvents.UpdateBalanceList         -> {
                     binding.convertRvBalance.recycledViewPool.setMaxRecycledViews(0, 0)
                     adapter.submitList(it.list) {
                         if (it.list.size > 20) {
@@ -119,11 +118,15 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
                         }
                     }
                 }
-                is ConvertEvents.NavBalanceList    -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToBalanceListFragment(it.list.toTypedArray()))
-                is ConvertEvents.NavCurrencyList   -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToCurrencyListFragment(it.list.toTypedArray(), it.sellRate, it.receiveRate))
-                is ConvertEvents.NavSetting        -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToSettingFragment())
-                is ConvertEvents.ShowDialog        -> it.dialog.show(childFragmentManager)
-                is ConvertEvents.UpdateSellText    -> {
+                is ConvertEvents.NavBalanceList            -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToBalanceListFragment(it.list.toTypedArray()))
+                is ConvertEvents.NavCurrencyList           -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToCurrencyListFragment(it.list.toTypedArray(), it.sellRate, it.receiveRate))
+                is ConvertEvents.NavSetting                -> findNavController().navigate(ConvertFragmentDirections.actionConvertFragmentToSettingFragment())
+                is ConvertEvents.ShowConvertCompleteDialog -> CustomDialog(requireContext())
+                    .setTitle(R.string.convert_success_title)
+                    .setContent(it.content.asString(requireContext()) + "\n" + it.fee.asString(requireContext()))
+                    .setPositiveText(R.string.confirm)
+                    .show(childFragmentManager)
+                is ConvertEvents.UpdateSellText            -> {
                     binding.convertEtSell.apply {
                         if (text.toString() != it.text) {
                             removeTextChangedListener(sellTextWatcher)
@@ -134,7 +137,7 @@ class ConvertFragment : BaseFragment<FragmentConvertBinding, ConvertEvents, Conv
                         }
                     }
                 }
-                is ConvertEvents.UpdateReceiveText -> {
+                is ConvertEvents.UpdateReceiveText         -> {
                     binding.convertEtReceive.apply {
                         if (text.toString() != it.text) {
                             removeTextChangedListener(receiveTextWatcher)

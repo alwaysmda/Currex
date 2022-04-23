@@ -2,6 +2,8 @@ package domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+import util.StringResource
 import util.extension.separateNumberBy3
 
 @Parcelize
@@ -11,8 +13,8 @@ data class ConvertResult(
     val sellFee: Double,
     val receiveFee: Double,
     val isValid: Boolean,
-    val error: String,
-    val feeDesc: String,
+    val error: @RawValue StringResource,
+    val feeDesc: @RawValue StringResource,
 ) : Parcelable {
 
     val sellString: String

@@ -1,15 +1,16 @@
 package ui.setting
 
 import androidx.lifecycle.viewModelScope
+import com.example.currex.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import domain.model.Option
 import domain.model.Option.Companion.cloned
 import domain.usecase.convert.ConvertUseCases
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import main.ApplicationClass
 import ui.base.BaseViewModel
 import util.Constant
+import util.StringResource
 import javax.inject.Inject
 
 @HiltViewModel
@@ -121,8 +122,6 @@ class SettingViewModel @Inject constructor(
         Option("False", false),
     )
 
-    //Binding
-    var searchText = MutableStateFlow("")
 
     override fun onStart() {
         if (isFirstStart) {
@@ -245,6 +244,7 @@ class SettingViewModel @Inject constructor(
     override fun onResetBalanceClick() {
         viewModelScope.launch {
             convertUseCases.resetBalanceListUseCase()
+            _event.emit(SettingEvents.Snack(StringResource.Translatable(R.string.done)))
         }
     }
 
@@ -252,6 +252,9 @@ class SettingViewModel @Inject constructor(
         app.prefManager.setPref(Constant.PREF_INITIALIZED, false)
         app.appSetting.init()
         updateAllLists()
+        viewModelScope.launch {
+            _event.emit(SettingEvents.Snack(StringResource.Translatable(R.string.done)))
+        }
     }
 
     override fun onContactDeveloperClick() {

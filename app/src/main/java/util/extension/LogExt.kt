@@ -72,7 +72,7 @@ fun getStringLog(vararg s: Any?): String {
 }
 
 fun log(vararg s: Any?) {
-    if (BuildConfig.DEBUG || true) {
+    if (BuildConfig.DEBUG) {
         //        Log.e(getLocation(), getStringLog(*s))
         val length = 3500
         val location = getLocation()

@@ -1,12 +1,11 @@
 package ui.setting
 
 import domain.model.Option
-import main.ApplicationClass
 import ui.base.BaseEvent
+import util.StringResource
 
 sealed class SettingEvents : BaseEvent() {
-    class Rebind(val app: ApplicationClass) : SettingEvents()
-    class Snack(val message: String) : SettingEvents()
+    class Snack(val message: StringResource) : SettingEvents()
     class UpdateRetryIntervalList(val list: ArrayList<Option<Int>>) : SettingEvents()
     class UpdateFreeConvertCountList(val list: ArrayList<Option<Int>>) : SettingEvents()
     class UpdateFreeConvertEveryXList(val list: ArrayList<Option<Int>>) : SettingEvents()
