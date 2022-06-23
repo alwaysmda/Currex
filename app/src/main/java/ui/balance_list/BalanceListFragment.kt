@@ -47,7 +47,6 @@ class BalanceListFragment : BaseFragment<FragmentBalanceListBinding, BalanceList
         }
     }
 
-
     private fun observeEvents() {
         viewModel.event.onEach {
             when (it) {
